@@ -14,6 +14,26 @@
         .hover-link:hover {
             background-color: #2d3748; /* Màu nền khi hover */
         }
+        .modal {
+            display: none; /* Ẩn modal ban đầu */
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ cho modal */
+        }
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body class="bg-gray-100 font-sans">
@@ -50,8 +70,8 @@
                     </div>
                     <a href="adminlogin.html" class="text-red-500 hover:underline">Đăng xuất</a> <!-- Thêm liên kết đăng xuất -->
                 </div>
-                <input type="text" placeholder="Tìm kiếm sản phẩm..." class="border rounded p-2 w-1/2">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded ml-4">Thêm Sản phẩm</button>
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." class="border rounded p-2 w-1/2">
+                <button id="addProductBtn" class="bg-blue-500 text-white px-4 py-2 rounded ml-4">Thêm Sản phẩm</button>
             </div>
             <h2 class="text-2xl font-bold mb-4">Quản lý Sản phẩm</h2>
             <table class="min-w-full bg-white rounded shadow">
@@ -65,66 +85,132 @@
                         <th class="py-2 px-4 text-left">Hành động</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td class="py-2 px-4">1</td>
-                        <td class="py-2 px-4">Trà Đào</td>
-                        <td class="py-2 px-4">25.000đ</td>
-                        <td class="py-2 px-4">100</td>
-                        <td class="py-2 px-4">Còn hàng</td>
-                        <td class="py-2 px-4">
-                            <button class="text-blue-500">Xem chi tiết</button>
-                            <button class="text-red-500 ml-2">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="py-2 px-4">2</td>
-                        <td class="py-2 px-4">Cafe Muối</td>
-                        <td class="py-2 px-4">30.000đ</td>
-                        <td class="py-2 px-4">50</td>
-                        <td class="py-2 px-4">Còn hàng</td>
-                        <td class="py-2 px-4">
-                            <button class="text-blue-500">Xem chi tiết</button>
-                            <button class="text-red-500 ml-2">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="py-2 px-4">3</td>
-                        <td class="py-2 px-4">Sữa Gấu</td>
-                        <td class="py-2 px-4">30.000đ</td>
-                        <td class="py-2 px-4">20</td>
-                        <td class="py-2 px-4">Còn hàng</td>
-                        <td class="py-2 px-4">
-                            <button class="text-blue-500">Xem chi tiết</button>
-                            <button class="text-red-500 ml-2">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="py-2 px-4">4</td>
-                        <td class="py-2 px-4">Cafe Trứng</td>
-                        <td class="py-2 px-4">25.000đ</td>
-                        <td class="py-2 px-4">0</td>
-                        <td class="py-2 px-4">Đã Hết</td>
-                        <td class="py-2 px-4">
-                            <button class="text-blue-500">Xem chi tiết</button>
-                            <button class="text-red-500 ml-2">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="py-2 px-4">5</td>
-                        <td class="py-2 px-4">Nước Cam Tươi</td>
-                        <td class="py-2 px-4">35.000đ</td>
-                        <td class="py-2 px-4">1000</td>
-                        <td class="py-2 px-4">Đang Nhập Hàng</td>
-                        <td class="py-2 px-4">
-                            <button class="text-blue-500">Xem chi tiết</button>
-                            <button class="text-red-500 ml-2">Xóa</button>
-                        </td>
-                    </tr>
-                    <!-- Thêm nhiều hàng nếu cần -->
+                <tbody id="productTableBody">
+                    <!-- Dữ liệu sản phẩm sẽ được thêm vào đây -->
                 </tbody>
             </table>
         </div>
     </div>
+
+    <!-- Modal Thêm Sản phẩm -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <h2 class="text-2xl font-bold mb-4">Thêm Sản phẩm</h2>
+            <label for="productName" class="block mb-2">Tên Sản phẩm:</label>
+            <input type="text" id="productName" class="border rounded p-2 w-full mb-4" placeholder="Nhập tên sản phẩm...">
+            <label for="productPrice" class="block mb-2">Giá:</label>
+            <input type="text" id="productPrice" class="border rounded p-2 w-full mb-4" placeholder="Nhập giá sản phẩm...">
+            <label for="productQuantity" class="block mb-2">Số lượng:</label>
+            <input type="number" id="productQuantity" class="border rounded p-2 w-full mb-4" placeholder="Nhập số lượng sản phẩm...">
+            <label for="productStatus" class="block mb-2">Trạng thái:</label>
+            <select id="productStatus" class="border rounded p-2 w-full mb-4">
+                <option value="Còn hàng">Còn hàng</option>
+                <option value="Đã hết">Đã Hết</option>
+                <option value="Đang nhập hàng">Đang Nhập Hàng</option>
+            </select>
+            <button id="saveProductBtn" class="bg-blue-500 text-white px-4 py-2 rounded">Lưu sản phẩm</button>
+            <button id="closeModalBtn" class="bg-red-500 text-white px-4 py-2 rounded ml-2">Đóng</button>
+        </div>
+    </div>
+
+    <script>
+        // Lấy dữ liệu sản phẩm từ Local Storage
+        const getProductsFromLocalStorage = () => {
+            const products = localStorage.getItem('products');
+            return products ? JSON.parse(products) : [];
+        };
+
+        // Lưu dữ liệu sản phẩm vào Local Storage
+        const saveProductsToLocalStorage = (products) => {
+            localStorage.setItem('products', JSON.stringify(products));
+        };
+
+        // Hiển thị sản phẩm trên bảng
+        const renderProducts = () => {
+            const products = getProductsFromLocalStorage();
+            const productTableBody = document.getElementById('productTableBody');
+            productTableBody.innerHTML = '';
+
+            products.forEach((product, index) => {
+                const row = productTableBody.insertRow();
+                row.innerHTML = `
+                    <td class="py-2 px-4">${index + 1}</td>
+                    <td class="py-2 px-4">${product.name}</td>
+                    <td class="py-2 px-4">${product.price}đ</td>
+                    <td class="py-2 px-4">${product.quantity}</td>
+                    <td class="py-2 px-4">${product.status}</td>
+                    <td class="py-2 px-4">
+                        <button class="text-blue-500 detail-btn">Xem chi tiết</button>
+                        <button class="text-red-500 ml-2 delete-btn">Xóa</button>
+                    </td>
+                `;
+
+                // Thêm chức năng xóa
+                row.querySelector('.delete-btn').addEventListener('click', function() {
+                    products.splice(index, 1); // Xóa sản phẩm khỏi mảng
+                    saveProductsToLocalStorage(products); // Lưu lại
+                    renderProducts(); // Cập nhật bảng
+                });
+
+                // Thêm chức năng xem chi tiết
+                row.querySelector('.detail-btn').addEventListener('click', function() {
+                    alert('Chi tiết sản phẩm:\nTên: ' + product.name + '\nGiá: ' + product.price + 'đ\nSố lượng: ' + product.quantity + '\nTrạng thái: ' + product.status);
+                });
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts(); // Hiển thị sản phẩm khi tải trang
+
+            const addProductModal = document.getElementById('addProductModal');
+            const addProductBtn = document.getElementById('addProductBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const saveProductBtn = document.getElementById('saveProductBtn');
+
+            // Mở modal thêm sản phẩm
+            addProductBtn.addEventListener('click', () => {
+                addProductModal.style.display = 'block';
+            });
+
+            // Đóng modal
+            closeModalBtn.addEventListener('click', () => {
+                addProductModal.style.display = 'none';
+            });
+
+            // Lưu sản phẩm
+            saveProductBtn.addEventListener('click', () => {
+                const name = document.getElementById('productName').value;
+                const price = document.getElementById('productPrice').value;
+                const quantity = document.getElementById('productQuantity').value;
+                const status = document.getElementById('productStatus').value;
+
+                if (name && price && quantity) {
+                    const products = getProductsFromLocalStorage();
+                    products.push({ name, price, quantity, status });
+                    saveProductsToLocalStorage(products);
+                    renderProducts(); // Cập nhật bảng
+                    addProductModal.style.display = 'none'; // Đóng modal
+                    // Reset lại các trường input
+                    document.getElementById('productName').value = '';
+                    document.getElementById('productPrice').value = '';
+                    document.getElementById('productQuantity').value = '';
+                    document.getElementById('productStatus').value = 'Còn hàng';
+                } else {
+                    alert('Vui lòng nhập đầy đủ thông tin sản phẩm!');
+                }
+            });
+
+            // Tìm kiếm sản phẩm
+            document.getElementById('searchInput').addEventListener('input', function() {
+                const searchText = this.value.toLowerCase();
+                const rows = productTableBody.getElementsByTagName('tr');
+
+                Array.from(rows).forEach(row => {
+                    const productName = row.cells[1].textContent.toLowerCase();
+                    row.style.display = productName.includes(searchText) ? '' : 'none';
+                });
+            });
+        });
+    </script>
 </body>
 </html>

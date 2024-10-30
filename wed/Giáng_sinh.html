@@ -29,6 +29,51 @@
             content: ""; /* Xóa dấu chấm ở đầu */
             list-style: none; 
         }
+        /* Căn giữa mục BÀI VIẾT MỚI NHẤT */
+.list-product {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px; /* Khoảng cách giữa các mục */
+    margin-top: 20px;
+}
+
+/* Thiết lập kiểu cho các mục con */
+.list-product .item {
+    text-align: center;
+    max-width: 45%; /* Đảm bảo các mục con không vượt quá 45% chiều rộng */
+    margin-bottom: 30px;
+}
+
+/* Thiết lập cho hình ảnh */
+.responsive-image {
+    width: 100%; /* Đảm bảo ảnh luôn chiếm 100% khung chứa */
+    height: auto;
+    max-height: 280px; /* Giới hạn chiều cao của ảnh để nhất quán */
+    border-radius: 8px; /* Tùy chọn: bo tròn góc cho ảnh */
+    object-fit: cover; /* Giữ ảnh đẹp trong khung hình mà không biến dạng */
+}
+
+/* Thiết lập cho tiêu đề */
+.item h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.item h3 a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+.item h3 a:hover {
+    color: #d9534f; /* Màu sắc khi hover */
+}
+
     </style>
     <script>
         // Cập nhật hình ảnh cờ theo ngôn ngữ được chọn
@@ -153,8 +198,8 @@
                     <li><a href="#">Món khác</a></li>
                 </ul>
             </li>
-            <li><a href="#"><i class="fas fa-exchange-alt"></i> Chính sách đổi trả</a></li>
-            <li><a href="#"><i class="fas fa-map-marker-alt"></i> Liên hệ</a></li>
+            <li><a href="chinhsach.html"><i class="fas fa-exchange-alt"></i> Chính sách đổi trả</a></li>
+            <li><a href="lienhe.html"><i class="fas fa-map-marker-alt"></i> Liên hệ</a></li>
             <li class="dropdown">
                 <a href="#" onclick="toggleNewsDropdown(event)">Tin tức</a>
                 <ul class="dropdown-content hidden" id="news-dropdown">
@@ -176,12 +221,17 @@
 
         <div class="container banner">
             <div>
-                <h1>Giáng Sinh: Giảm Giá 20% Cho Tất Cả Khách Hàng!</h1>
-                <h3>Thời Gian Áp Dụng:</h3>
-                    <p>Từ ngày 1 tháng 12 đến ngày 25 tháng 12.</p>
-                <h3>Nội Dung Chương Trình</h3>
-                    <p>Giảm giá 20% cho tất cả món ăn và đồ uống trong quán.</p>
-                <h3>Tất cả khách hàng đều được áp dụng giảm giá khi đến quán trong thời gian khuyến mãi.</h3>
+                <h1>🎄 Chương Trình Khuyến Mãi Giáng Sinh 🎄</h1>
+                <p>Chào đón mùa lễ hội, tiệm nước của chúng tôi xin gửi đến quý khách hàng chương trình khuyến mãi đặc biệt:</p>
+                <h3>Giảm giá 30% cho tất cả đồ uống!</h3><br>
+                <h3>📅 Thời gian áp dụng:</h3><br>
+                <p>Từ <strong>27 tháng 10</strong> đến <strong>2 tháng 11</strong>.</p><br><br>
+                <h3>Nội dung chương trình:</h3>
+                <ul>
+                    <li><strong>Giảm giá 30%</strong> cho tất cả các loại đồ uống tại quán.</li>
+                    <li>Tất cả khách hàng đều được áp dụng giảm giá khi đến quán trong thời gian khuyến mãi.</li>
+                </ul>
+            
                 <h3>Lưu Ý</h3>
                 <ul class="no-dot">
                     <li>Không áp dụng đồng thời với các chương trình khuyến mãi khác.</li>
@@ -192,18 +242,46 @@
                         <li>Để biết thêm thông tin, vui lòng liên hệ qua số điện thoại: 1900113114.</li>
                         <li>Theo dõi trang mạng xã hội của chúng tôi để cập nhật các chương trình khuyến mãi và sự kiện đặc biệt!</li>
                     </ul>
+                    <p>Hãy đến và thưởng thức những ly đồ uống thơm ngon trong không khí Giáng sinh ấm áp!</p>
             </div>
-        </div>    
+        </div>    </div>
+        <center style="color: red; margin-top: 40px; font-weight: bold; font-size: 25px;">BÀI VIẾT MỚI NHẤT</center>
 
-        <div class="footer" style="width: 921640px;">
-            <p>&copy; 2023 Vị Coffee. Bảo lưu mọi quyền.</p>
-            <div class="social-icons">
-                <a href="#"><img src="Images/logofb.jpg" alt="Facebook"></a>
-                <a href="#"><img src="Images/logoins.jpg" alt="Instagram"></a>
-                <a href="#"><img src="Images/logotwiter.jpg" alt="Twitter"></a>
-            </div>
-            <p><a href="#">Chính sách bảo mật</a> | <a href="#">Điều khoản dịch vụ</a></p>
-        </div>
-    </div>
+<div class="list-product">
+    <section class="item">
+        <a href="TV.html" class="item-image">
+            <img src="Images/Tv.jpg" alt="Christmas Sale" class="responsive-image">
+        </a>
+        <h3>
+            <a href="TV.html" class="item-title">
+                CHRISMAST SALE ĐẶC QUYỀN - Giảm giá 35% cho tất cả đồ uống cho tất cả thành viên.
+            </a>
+        </h3>
+    </section>
+    
+    <section class="item">
+        <a href="Hallo.html" class="item-image">
+            <img src="Images/halloween1.jpg" alt="Halloween Sale" class="responsive-image">
+        </a>
+        <h3>
+            <a href="Hallo.html" class="item-title">
+                HALLOWEEN - Giảm giá 30% cho tất cả đồ ăn và đồ uống trong quán.
+            </a>
+        </h3>
+    </section>
+</div>
+
+
+                    <footer class="footer" style="width: 100%">
+                        <p>&copy; 2023 Vị Coffee. Bảo lưu mọi quyền.</p>
+                        <div class="social-icons">
+                            <a href="#"><img src="Images/logofb.jpg" alt="Facebook"></a>
+                            <a href="#"><img src="Images/logoins.jpg" alt="Instagram"></a>
+                            <a href="#"><img src="Images/logotwiter.jpg" alt="Twitter"></a>
+                        </div>
+                        <p><a href="#">Chính sách bảo mật</a> | <a href="#">Điều khoản dịch vụ</a></p>
+                    </footer>
+                  
+    
 </body>
 </html>

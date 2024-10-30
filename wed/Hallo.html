@@ -33,6 +33,49 @@
     position: relative; /* Đảm bảo container của banner là tương đối */
     z-index: 1; /* Giữ banner trên các phần tử khác */
 }
+    /* Căn giữa mục BÀI VIẾT MỚI NHẤT */
+.list-product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px; /* Khoảng cách giữa các mục */
+    margin-top: 20px;
+}
+
+/* Thiết lập kiểu cho các mục con */
+.list-product .item {
+    text-align: center; /* Căn giữa ảnh và tiêu đề */
+    max-width: 45%; /* Đảm bảo các mục con không vượt quá 45% chiều rộng */
+    margin-bottom: 30px;
+}
+
+/* Thiết lập cho hình ảnh */
+.responsive-image {
+    width: 100%; /* Đảm bảo ảnh luôn chiếm 100% khung chứa */
+    height: auto;
+    border-radius: 8px; /* Tùy chọn: làm bo góc cho ảnh */
+}
+
+/* Thiết lập cho tiêu đề */
+.item h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.item h3 a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+.item h3 a:hover {
+    color: #d9534f; /* Màu sắc khi hover */
+}
+
     </style>
     <script>
         // Cập nhật hình ảnh cờ theo ngôn ngữ được chọn
@@ -158,8 +201,8 @@
                     <li><a href="#">Panna-Cotta</a></li>
                 </ul>
             </li>
-            <li><a href="#"><i class="fas fa-exchange-alt"></i> Chính sách đổi trả</a></li>
-            <li><a href="#"><i class="fas fa-map-marker-alt"></i> Liên hệ</a></li>
+            <li><a href="chinhsach.html"><i class="fas fa-exchange-alt"></i> Chính sách đổi trả</a></li>
+            <li><a href="lienhe.html"><i class="fas fa-map-marker-alt"></i> Liên hệ</a></li>
             <li class="dropdown">
                 <a href="#" onclick="toggleNewsDropdown(event)">Tin tức</a>
                 <ul class="dropdown-content hidden" id="news-dropdown">
@@ -175,39 +218,70 @@
     <div class="main-content">  
         <div class="container">
             <div class="new-banner-item active">
-                <img src="Images/hallow.jpg" alt="Khuyến mãi 1">
+                <img src="Images/halloween1.jpg" alt="Khuyến mãi 1" >
             </div>
         </div>
         <div class="container banner">
-            <div>
-                <h1>Halloween Sales</h1>
-                <h3>Thời Gian Áp Dụng:</h3>
-                    <p>Từ ngày 27 tháng 10 đến ngày 2 tháng 11.</p>
+            <div class="banner-content">
+                <h1>🎃 Halloween Sales 🎃</h1>
+                <h3>📅 Thời Gian Áp Dụng:</h3>
+                <p>Từ ngày 27 tháng 10 đến ngày 2 tháng 11.</p>
+                
                 <h3>Nội Dung Chương Trình</h3>
-                    <p>Giảm giá 30% cho tất cả đồ ăn và đồ uống trong quán.</p>
+                <p>Giảm giá 30% cho tất cả đồ ăn và đồ uống trong quán.</p>
                 <h3>Tất cả khách hàng đều được áp dụng giảm giá khi đến quán trong thời gian khuyến mãi.</h3>
+                
                 <h3>Lưu Ý</h3>
                 <ul class="no-dot">
                     <li>Không áp dụng đồng thời với các chương trình khuyến mãi khác.</li>
                     <li>Chương trình có thể kết thúc sớm nếu hết hàng.</li>
                 </ul>
+                
                 <h3>Liên hệ</h3>
-                    <ul class="no-dot">
-                        <li>Để biết thêm thông tin, vui lòng liên hệ qua số điện thoại: 1900113114.</li>
-                        <li>Theo dõi trang mạng xã hội của chúng tôi để cập nhật các chương trình khuyến mãi và sự kiện đặc biệt!</li>
-                    </ul>
+                <ul class="no-dot">
+                    <li>Để biết thêm thông tin, vui lòng liên hệ qua số điện thoại: <strong>1900113114</strong>.</li>
+                    <li>Theo dõi trang mạng xã hội của chúng tôi để cập nhật các chương trình khuyến mãi và sự kiện đặc biệt!</li>
+                </ul>
             </div>
-        </div>    
-
-        <div class="footer" style="width: 921640px;">
-            <p>&copy; 2023 Vị Coffee. Bảo lưu mọi quyền.</p>
-            <div class="social-icons">
-                <a href="#"><img src="Images/logofb.jpg" alt="Facebook"></a>
-                <a href="#"><img src="Images/logoins.jpg" alt="Instagram"></a>
-                <a href="#"><img src="Images/logotwiter.jpg" alt="Twitter"></a>
-            </div>
-            <p><a href="#">Chính sách bảo mật</a> | <a href="#">Điều khoản dịch vụ</a></p>
         </div>
+        
     </div>
+    <center style="color: red; margin-top: 40px; font-weight: bold; font-size: 25px;">BÀI VIẾT MỚI NHẤT</center>
+
+<div class="list-product">
+    <section class="item">
+        <a href="Giáng_sinh.html" class="item-image">
+            <img src="Images/christ.jpg" alt="" class="responsive-image"> 
+        </a>
+        <h3>
+            <a href="Giáng_sinh.html" class="item-title">
+                CHRISMAST SALE - Giảm giá 20% cho tất cả món ăn và đồ uống trong quán.
+            </a>
+        </h3>
+    </section>
+
+    <section class="item">
+        <a href="TV.html" class="item-image">
+            <img src="Images/Tv.jpg" alt="" class="responsive-image"> 
+        </a>
+        <h3>
+            <a href="TV.html" class="item-title">
+                CHRISMAST SALE ĐẶC QUYỀN - Giảm giá 35% cho tất cả đồ uống cho tất cả thành viên.
+            </a>
+        </h3>
+    </section>
+</div>
+
+                <footer class="footer" style="width: 100%">
+                    <p>&copy; 2023 Vị Coffee. Bảo lưu mọi quyền.</p>
+                    <div class="social-icons">
+                        <a href="#"><img src="Images/logofb.jpg" alt="Facebook"></a>
+                        <a href="#"><img src="Images/logoins.jpg" alt="Instagram"></a>
+                        <a href="#"><img src="Images/logotwiter.jpg" alt="Twitter"></a>
+                    </div>
+                    <p><a href="#">Chính sách bảo mật</a> | <a href="#">Điều khoản dịch vụ</a></p>
+                </footer>
+    
+  
 </body>
 </html>
