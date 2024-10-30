@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chính sách Đặt hàng</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .header {
+            background-color: #a00000;
+            padding: 15px 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Căn giữa và khoảng cách đều */
+        }
+        .header .logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+        .header .nav {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            justify-content: center; /* Căn giữa các liên kết */
+        }
+        .header .nav a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s; 
+            margin: 0 15px; /* Khoảng cách giữa các liên kết */
+        }
+        .header .nav a:hover {
+            color: #ffd700; 
+            background-color: rgba(255, 255, 255, 0.1); 
+            border-radius: 5px; /* Bo góc cho liên kết khi hover */
+        }
+        .header .nav .language-select {
+            display: flex;
+            align-items: center; 
+            margin-left: 15px;
+        }
+        .header .nav .language-select img {
+            margin-right: 5px; 
+            height: 20px; 
+        }
+        .header .nav select {
+            background-color: #a00000; 
+            color: white; 
+            border: none; 
+            padding: 5px 10px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            margin-left: 10px; 
+            transition: background-color 0.3s;
+        }
+        .header .nav select:hover {
+            background-color: #8a0000; 
+        }
+        .header .nav .cart {
+            border: 1px solid white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-left: 15px; 
+        }
+        .header .nav .cart:hover {
+            background-color: rgba(255, 255, 255, 0.2); 
+        }
+        .breadcrumb {
+            background-color: #f8f8f8;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd; /* Thêm đường viền dưới */
+        }
+        .content {
+            padding: 20px;
+            background-color: white; /* Nền trắng cho nội dung */
+            margin: 20px; /* Khoảng cách giữa nội dung và biên */
+            border-radius: 5px; /* Bo góc cho khung nội dung */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+        }
+        .content h1 {
+            font-size: 32px; 
+            color: #a6192e; 
+            margin-bottom: 20px;
+        }
+        .content h2 {
+            font-size: 24px; 
+            color: #a00000; 
+            margin-top: 20px;
+        }
+        .content p {
+            margin: 10px 0;
+            color: #333; 
+        }
+        .content ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+        .content ul li {
+            margin: 5px 0;
+        }
+        .content ul li::before {
+            content: "-";
+            margin-right: 5px;
+        }
+          .floating-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .floating-buttons a {
+            margin: 5px 0;
+            width: 50px;
+            height: 50px;
+            background-color: #d32f2f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            position: relative; /* Để chứa tooltip */
+        }
+        .floating-buttons a:hover .tooltip {
+             visibility: visible; /* Hiện tooltip khi hover */
+             opacity: 1; /* Hiện tooltip */
+        }
+
+        .tooltip {
+        visibility: hidden; /* Ẩn tooltip mặc định */
+        opacity: 0; /* Ẩn tooltip */
+        background-color: black; /* Nền đen */
+        color: white; /* Chữ trắng */
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
+        position: absolute;
+        top: 50%; /* Căn giữa theo chiều dọc */
+        right: 60px;/* Đưa tooltip sang bên trái nút */
+        transform: translateY(-50%); /* Căn giữa tooltip */
+        white-space: nowrap; /* Ngăn dòng chữ xuống hàng */
+        transition: opacity 0.3s; /* Hiệu ứng chuyển đổi */
+        z-index: 10; /* Đảm bảo tooltip hiện lên trên */
+        }
+
+        .scroll-to-top {
+            margin-bottom: 5px; /* Khoảng cách giữa nút lên và nút gọi điện */
+            width: 50px;
+            height: 50px;
+            background-color: #d32f2f; /* Màu nền */
+            border-radius: 50%; /* Hình tròn */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #b71c1c; /* Màu khi hover */
+        }
+
+        .modal-toggle {
+            display: none; /* Ẩn checkbox */
+        }
+        .modal {
+            display: none; /* Ẩn modal mặc định */
+            position: fixed; 
+            z-index: 100; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.4); /* Nền tối */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            position: relative;
+        }  
+        .modal h2 {
+            color: #a00000; /* Màu tiêu đề modal */
+        }
+       .modal p {
+            color: #333; /* Màu chữ trong modal */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+        /* Hiển thị modal khi checkbox được chọn */
+        .modal-toggle:checked + .modal {
+            display: block;
+        }
+        .modal-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn-call {
+            background-color: #d32f2f; /* Màu nút gọi */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn-call:hover {
+            background-color: rgba(211, 47, 47, 0.1); /* Màu khi hover */
+        }
+        .btn-cancel {
+            cursor: pointer;
+            color: #d32f2f;
+            padding: 10px 20px;
+            border: 1px solid #d32f2f;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn-cancel:hover {
+            background-color: rgba(211, 47, 47, 0.1); /* Màu khi hover */
+        }
+
+        .footer {
+            background-color: white;
+            color: black;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            border-top: 1px solid #ddd; /* Thêm đường viền trên */
+        }
+        .footer a {
+            color: black;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer .social-icons img {
+            width: 30px;
+            margin: 0 5px;
+        }
+
+        .nav .dropdown {
+            position: relative;
+        }
+        .nav .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            min-width: 200px;
+            z-index: 1;
+            border-radius: 5px;
+        }
+        .nav .dropdown-content a {
+            color: #333;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        .nav .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .nav .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <img alt="Vị Coffee Logo" src="Images/LOGO.jpg"/>
+        </div>
+        <div class="nav">
+            <a href="#"><i class="fas fa-bars"></i> Danh mục sản phẩm</a>
+            <a href="#"><i class="fas fa-exchange-alt"></i> Chính sách đổi trả</a>
+            <a href="lienhe.html"><i class="fas fa-map-marker-alt"></i> Liên hệ</a>
+            <div class="dropdown">
+                <a href="#"><i class="fas fa-newspaper"></i> Tin tức</a>
+                <div class="dropdown-content">
+                    <a href="Hallo.html">Halloween Sales</a>
+                    <a href="Giáng_sinh.html">Giáng sinh</a>
+                    <a href="TV.html">Tết Nguyên Đán</a>
+                </div>
+            </div>
+            <div class="language-select">
+                <img id="flag" src="https://storage.googleapis.com/a1aa/image/zvoEDfgml8TlaSnc5ptBwj7TUjq5X4fuxfYxTDHF3xrf4vnOB.jpg" alt="Flag">
+                <select id="language-select" onchange="updateFlag()">
+                    <option value="en" data-flag="https://storage.googleapis.com/a1aa/image/zvoEDfgml8TlaSnc5ptBwj7TUjq5X4fuxfYxTDHF3xrf4vnOB.jpg">English</option>
+                    <option value="vi" data-flag="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg">Tiếng Việt</option>
+                </select>
+            </div>
+            <label for="call-confirmation" class="delivery-link"><i class="fas fa-phone-alt"></i> Giao tận nơi 1900113114</label>
+            <input type="checkbox" id="call-confirmation" class="modal-toggle">
+            <div class="modal">
+                <div class="modal-content">
+                    <label for="call-confirmation" class="close">&times;</label>
+                    <h2>Thông báo</h2>
+                    <p>Bạn có muốn gọi ngay không?</p>
+                    <div class="modal-actions">
+                        <a href="#" class="btn-call">Gọi ngay</a>
+                        <label for="call-confirmation" class="btn-cancel">Hủy</label>
+                    </div>
+                </div>
+            </div>
+            <a href="login.html"><i class="fas fa-user"></i> Tài khoản Đăng nhập</a>
+            <a class="cart" href="#"><i class="fas fa-shopping-cart"></i> Giỏ hàng 0</a>
+        </div>
+    </div>
+    <div class="breadcrumb">
+        <a href="#">Trang chủ</a> / <a href="#">Chính sách Đặt hàng</a>
+    </div>
+    <div class="content">
+        <h1>Chính Sách Đặt Hàng Vị Coffee</h1>
+        <h2>1. Phạm vi giao hàng và vận chuyển</h2>
+        <p>Trong tháng 10/2023, Vị Coffee® hỗ trợ đặt hàng trên website <a style="color: blue;">www.order.ViCoffee.com.vn</a> và giao hàng trên địa bàn Tp.Hồ Chí Minh. Tùy theo tình hình thực tế, các chính sách đặt hàng và giao hàng sẽ có sự thay đổi và khách hàng sẽ nhận được thông tin cập nhật trên website.</p>
+        
+        <h2>2. Chính sách hoàn trả hàng và hoàn tiền</h2>
+        <p>Quý Khách Hàng có quyền hoàn trả sản phẩm (đối với Thức uống/Bánh/Sản phẩm Trà, Cà Phê đóng gói và sản phẩm Ly/Bình giữ nhiệt) nếu đơn hàng/sản phẩm gặp vấn đề trong các trường hợp sau:</p>
+        <ul>
+            <li>Sản phẩm bị hư hỏng, không còn nguyên vẹn trong quá trình vận chuyển từ nhà cung cấp;</li>
+            <li>Sản phẩm có vấn đề về chất lượng sau khi được kiểm tra và xác thực thông tin phản ánh là chính xác.</li>
+        </ul>
+        <p><strong>Lưu ý:</strong></p>
+        <ul>
+            <li>Vị Coffee chưa hỗ trợ các yêu cầu trả hàng/ hoàn tiền với các lý do liên quan đến cảm quan/ không hài lòng/ thay đổi quyết định mua hàng hoặc thông tin phản ánh chưa chính xác.</li>
+            <li>Thời hạn để gửi yêu cầu trả đổi sản phẩm là 24 giờ. Đối với ngành hàng Thức uống/Bánh ngọt, thời hạn gửi yêu cầu là trong ngày kể từ ngày nhận hàng cho đến khi kết thúc ca làm việc cuối ngày của cửa hàng.</li>
+        </ul>
+
+        <h2>3. Chính sách đổi trả, đền bù</h2>
+        <p>Trường hợp những sản phẩm có vấn đề về chất lượng, Vị Coffee® sẽ thu hồi và thực hiện 1 đổi 1 sản phẩm cùng loại cho Quý Khách Hàng ngay tại cửa hàng mà Quý Khách Hàng đã mua sản phẩm đó. Nếu sản phẩm cùng loại để đổi cho Quý Khách Hàng không có sẵn, chúng tôi có thể đổi sang sản phẩm có giá trị tương đương tại thời điểm đổi hàng hoặc hoàn trả tiền mặt cho Quý Khách Hàng sau khi thực hiện trừ các chi phí khấu hao (nếu có).</p>
+        <p>Về phía Quý Khách Hàng, hiện trạng sản phẩm hoàn trả lại phải tương tự như thời điểm nhận hàng, Khách hàng phải cung cấp được mã đặt hàng hoặc hóa đơn mua hàng của sản phẩm cần đổi trả. Chúng tôi sẽ tiến hành trừ phí khấu hao tại thời điểm đổi hàng nếu sản phẩm không giống với hiện trạng ban đầu.</p>
+
+        <h2>4. Quy trình đổi trả hàng và hoàn tiền</h2>
+        <p>Quý Khách Hàng vui lòng thực hiện theo các bước sau để gửi thông tin phản ánh về sản phẩm:</p>
+        <ul>
+            <li><strong>Bước 1:</strong> Liên hệ qua các kênh đã được thông báo hoặc trực tiếp cửa hàng đã mua sản phẩm để cung cấp thông tin phản ánh. Hãy cung cấp các thông tin sau:</li>
+            <ul>
+                <li>Mã đơn đặt hàng/ Hóa đơn mua hàng;</li>
+                <li>Hình ảnh sản phẩm/ Video rõ ràng về phần Quý Khách Hàng muốn khiếu nại.</li>
+            </ul>
+            <li><strong>Bước 2:</strong> Vị Coffee® tiếp nhận phản hồi trong vòng 24 giờ và tiến hành kiểm tra yêu cầu trả hàng để xác định tính thoả đáng và chính xác của yêu cầu.</li>
+            <li><strong>Bước 3:</strong> Sau khi kiểm tra, Vị Coffee® sẽ liên hệ trực tiếp với Quý Khách Hàng để thỏa thuận phương án đổi hàng theo chính sách.</li>
+        </ul>
+
+        <h2>5. Chính sách người dùng</h2>
+        <p>Mỗi số điện thoại chỉ tạo được một (01) tài khoản cho mục đích sử dụng cá nhân. Để đảm bảo quyền lợi, Quý Khách Hàng cam kết không chia sẻ thông tin tài khoản (bao gồm tên truy cập và mật khẩu) cho người khác hoặc chuyển nhượng tài khoản cho bất kỳ ai khác mà không có sự đồng ý của Vị Coffee®.</p>
+        <p>Vị Coffee® có quyền vô hiệu hoá hoặc tạm ngừng một phần tính năng của tài khoản nếu phát hiện vi phạm điều khoản hoặc chính sách của công ty, hoặc có hành vi mua hàng không trung thực, điển hình như:</p>
+        <ul>
+            <li>Tạo các đơn hàng ảo hoặc đánh giá giả mạo;</li>
+            <li>Có dấu hiệu lừa đảo hoặc lạm dụng các mã giảm giá và chương trình khuyến mãi để trục lợi;</li>
+            <li>Các trường hợp khác mà hệ thống của chúng tôi phát hiện.</li>
+        </ul>
+        <p>Khi Quý Khách Hàng hoàn thành quá trình xác minh qua các chứng từ và có sự đồng thuận giữa khách hàng và Vị Coffee®, tài khoản bị vô hiệu hoá hoặc tạm ngừng sẽ được khôi phục lại.</p>
+
+        <h2>6. Phương thức thanh toán</h2>
+        <p>Hiện tại, Vị Coffee® chỉ chấp nhận phương thức thanh toán khi đặt hàng, bao gồm:</p>
+        <ul>
+            <li>Thanh toán bằng tiền mặt.</li>
+        </ul>
+        <p>Các kênh thanh toán sẽ được điều chỉnh và thay đổi trong tương lai để cải thiện tiện ích cho khách hàng. Các thay đổi về phương thức thanh toán sẽ được thông báo đến Quý Khách Hàng để đảm bảo sự thuận tiện.</p>
+
+        <h2>7. Phí vận chuyển</h2>
+        <p>Vị Coffee® áp dụng các mức phí giao hàng như sau:</p>
+        <ul>
+            <li>Miễn phí giao hàng cho tất cả hóa đơn từ 99.000đ trong bán kính từ 0km đến 5km tính từ vị trí giao hàng.</li>
+            <li>Áp dụng phí giao hàng mặc định 10.000đ cho tất cả các đơn hàng dưới 99.000đ trong bán kính từ 0km đến 5km tính từ vị trí giao hàng.</li>
+        </ul>
+        <p>Chính sách phí giao hàng có thể thay đổi trong tương lai và sẽ thông báo cho Quý Khách Hàng khi có cập nhật.</p>
+
+        <h2>8. Hình thức đặt hàng</h2>
+        <p>Các hình thức đặt hàng:</p>
+        <ul>
+            <li>Trên website: Tham khảo thông tin tại <a style="color: blue;">www.order.ViCoffee.com.vn</a></li>
+            <li>Đặt hàng qua hotline: 1900 113 114 và thanh toán bằng tiền mặt.</li>
+        </ul>
+
+        <div class="floating-buttons">
+            <a href="chinhsach.html" class="scroll-to-top" title="Lên đầu trang"><i class="fas fa-chevron-up"></i></a>
+            <a href="#" class="floating-button" title="1900 113 114 - Giao Tận Nơi">
+                <i class="fas fa-phone-alt"></i>
+                <span class="tooltip">1900 113 114 - Giao Tận Nơi</span>
+            </a>
+        </div>
+        
+    <div class="footer">
+        <p>&copy; 2023 Vị Coffee. Bảo lưu mọi quyền.</p>
+        <div class="social-icons">
+            <a href="#"><img src="Images/logofb.jpg" alt="Facebook"></a>
+            <a href="#"><img src="Images/logoins.jpg" alt="Instagram"></a>
+            <a href="#"><img src="Images/logotwiter.jpg" alt="Twitter"></a>
+        </div>
+        <p><a href="#">Chính sách bảo mật</a> | <a href="#">Điều khoản dịch vụ</a></p>
+    </div>
+    <script>
+        function updateFlag() {
+            const select = document.getElementById('language-select');
+            const flagImg = document.getElementById('flag');
+            const selectedOption = select.options[select.selectedIndex];
+            flagImg.src = selectedOption.getAttribute('data-flag');
+        }
+    </script>
+</body>
+</html>

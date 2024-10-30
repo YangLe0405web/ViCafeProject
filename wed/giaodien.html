@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Giao diện</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .active-link {
+            background-color: #4A5568; /* Màu nền nổi bật cho liên kết đang hoạt động */
+            font-weight: bold; /* Tăng độ dày font cho liên kết đang chọn */
+        }
+        .hover-link:hover {
+            background-color: #2d3748; /* Màu nền khi hover */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-gray-800 text-white h-screen">
+            <div class="p-4">
+                <h1 class="text-2xl font-bold">Sapo</h1>
+            </div>
+            <nav class="mt-10">
+                <a href="tongquan.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Tổng quan</a>
+                <a href="donhang.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Đơn hàng</a>
+                <a href="sanpham.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Sản phẩm</a>
+                <a href="khachhang.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Khách hàng</a>
+                <a href="baocao.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Báo cáo</a>
+                <a href="khuyenmai.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Khuyến mãi</a>
+                <a href="giaodien.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link active-link">Giao diện</a>
+                <a href="thietlap.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Thiết lập ứng dụng</a>
+                <a href="dongbo.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Đồng bộ</a>
+                <a href="website.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Website</a>
+                <a href="blog.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Blog</a>
+            </nav>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col items-start">
+                    <div class="flex items-center">
+                        <img src="Images/mrthanh.png" alt="Logo" class="h-10 w-10 rounded-full mr-2">
+                        <div>
+                            <span class="text-lg font-bold">Mr. Thanh</span>
+                            <div class="text-sm text-gray-500">Quản lý cấp cao</div> <!-- Thêm thông tin vị trí -->
+                        </div>
+                    </div>
+                    <a href="adminlogin.html" class="text-red-500 hover:underline">Đăng xuất</a> <!-- Thêm liên kết đăng xuất -->
+                </div>
+                <input type="text" placeholder="Nhập từ khóa tìm kiếm..." class="border rounded p-2 w-1/2">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded ml-4">Thêm Giao diện</button>
+            </div>
+            <h2 class="text-2xl font-bold mb-4">Quản lý Giao diện</h2>
+
+            <div class="bg-white p-4 rounded shadow mb-6">
+                <h3 class="text-lg font-bold">Tùy chọn Giao diện</h3>
+                <p class="text-gray-700">Chọn các tùy chọn để tùy chỉnh giao diện của ứng dụng.</p>
+                <div class="mt-4">
+                    <label class="block">
+                        <input type="checkbox" class="mr-2"> Tối ưu hóa giao diện di động
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" class="mr-2"> Chọn màu chủ đề
+                    </label>
+                    <label class="block">
+                        <input type="checkbox" class="mr-2"> Hiển thị thông báo mới
+                    </label>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow mb-6">
+                <h3 class="text-lg font-bold">Chọn Màu Chủ Đề</h3>
+                <div class="grid grid-cols-3 gap-4 mt-4">
+                    <button class="w-full h-12 bg-red-500 rounded hover:opacity-80">Đỏ</button>
+                    <button class="w-full h-12 bg-green-500 rounded hover:opacity-80">Xanh lá</button>
+                    <button class="w-full h-12 bg-blue-500 rounded hover:opacity-80">Xanh dương</button>
+                    <button class="w-full h-12 bg-yellow-500 rounded hover:opacity-80">Vàng</button>
+                    <button class="w-full h-12 bg-purple-500 rounded hover:opacity-80">Tím</button>
+                    <button class="w-full h-12 bg-gray-500 rounded hover:opacity-80">Xám</button>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow mb-6">
+                <h3 class="text-lg font-bold">Mẫu Giao Diện</h3>
+                <p class="text-gray-700">Chọn một mẫu giao diện cho ứng dụng của bạn.</p>
+                <div class="flex space-x-4 mt-4">
+                    <div class="bg-gray-200 p-4 rounded shadow">
+                        <p class="font-bold">Mẫu 1</p>
+                        <button class="bg-blue-500 text-white px-2 py-1 rounded mt-2">Chọn</button>
+                    </div>
+                    <div class="bg-gray-200 p-4 rounded shadow">
+                        <p class="font-bold">Mẫu 2</p>
+                        <button class="bg-blue-500 text-white px-2 py-1 rounded mt-2">Chọn</button>
+                    </div>
+                    <div class="bg-gray-200 p-4 rounded shadow">
+                        <p class="font-bold">Mẫu 3</p>
+                        <button class="bg-blue-500 text-white px-2 py-1 rounded mt-2">Chọn</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow mb-6">
+                <h3 class="text-lg font-bold">Tùy chọn Phông Chữ</h3>
+                <p class="text-gray-700">Chọn phông chữ cho ứng dụng của bạn.</p>
+                <div class="mt-4">
+                    <select class="border rounded p-2 w-full">
+                        <option value="Arial">Arial</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Courier New">Courier New</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow mb-6">
+                <h3 class="text-lg font-bold">Xem trước Giao diện</h3>
+                <p class="text-gray-700">Xem trước giao diện ứng dụng của bạn.</p>
+                <div class="border p-4 mt-4 rounded shadow">
+                    <p class="text-xl font-bold">Giao diện xem trước</p>
+                    <div class="mt-2" style="height: 200px; background-color: #f7fafc;">
+                        <!-- Giao diện xem trước sẽ hiển thị ở đây -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow">
+                <h3 class="text-lg font-bold">Phản hồi của người dùng</h3>
+                <p class="text-gray-700">Chia sẻ ý kiến của bạn để cải thiện giao diện ứng dụng.</p>
+                <textarea class="border rounded p-2 w-full mt-4" rows="4" placeholder="Nhập ý kiến của bạn..."></textarea>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Gửi Phản hồi</button>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow mt-6">
+                <h3 class="text-lg font-bold">Thông tin bổ sung</h3>
+                <p class="text-gray-700">Các tính năng mới sẽ được cập nhật thường xuyên để hỗ trợ bạn quản lý tốt hơn. Hãy kiểm tra định kỳ để không bỏ lỡ bất kỳ cập nhật nào!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

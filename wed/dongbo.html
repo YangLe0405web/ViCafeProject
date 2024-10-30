@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đồng bộ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .active-link {
+            background-color: #4A5568; /* Màu nền nổi bật cho liên kết đang hoạt động */
+            font-weight: bold; /* Tăng độ dày font cho liên kết đang chọn */
+        }
+        .hover-link:hover {
+            background-color: #2d3748; /* Màu nền khi hover */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-gray-800 text-white h-screen">
+            <div class="p-4">
+                <h1 class="text-2xl font-bold">Sapo</h1>
+            </div>
+            <nav class="mt-10">
+                <a href="tongquan.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Tổng quan</a>
+                <a href="donhang.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Đơn hàng</a>
+                <a href="sanpham.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Sản phẩm</a>
+                <a href="khachhang.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Khách hàng</a>
+                <a href="baocao.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Báo cáo</a>
+                <a href="khuyenmai.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Khuyến mãi</a>
+                <a href="giaodien.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Giao diện</a>
+                <a href="thietlap.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Thiết lập ứng dụng</a>
+                <a href="dongbo.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link active-link">Đồng bộ</a>
+                <a href="website.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Website</a>
+                <a href="blog.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Blog</a>
+            </nav>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col items-start">
+                    <div class="flex items-center">
+                        <img src="Images/mrthanh.png" alt="Logo" class="h-10 w-10 rounded-full mr-2">
+                        <div>
+                            <span class="text-lg font-bold">Mr. Thanh</span>
+                            <div class="text-sm text-gray-500">Quản lý cấp cao</div> <!-- Thêm thông tin vị trí -->
+                        </div>
+                    </div>
+                    <a href="adminlogin.html" class="text-red-500 hover:underline">Đăng xuất</a> <!-- Thêm liên kết đăng xuất -->
+                </div>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded">Lưu Cài đặt</button>
+            </div>
+            <h2 class="text-2xl font-bold mb-4">Cài đặt Đồng bộ</h2>
+            <div class="bg-white p-4 rounded shadow mb-6">
+                <h3 class="text-lg font-bold">Kết nối Đồng bộ</h3>
+                <p class="text-gray-700">Cấu hình các thiết lập để đồng bộ dữ liệu giữa các hệ thống.</p>
+                <div class="mt-4">
+                    <label class="block mb-2">Kết nối API:</label>
+                    <input type="text" class="border rounded p-2 w-full" placeholder="Nhập URL API để đồng bộ">
+                </div>
+                <div class="mt-4">
+                    <label class="block mb-2">Tần suất đồng bộ:</label>
+                    <select class="border rounded p-2 w-full">
+                        <option value="1">Mỗi giờ</option>
+                        <option value="2">Mỗi ngày</option>
+                        <option value="3">Mỗi tuần</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow mb-6">
+                <h3 class="text-lg font-bold">Quản lý Đồng bộ</h3>
+                <p class="text-gray-700">Xem trạng thái đồng bộ và lịch sử đồng bộ.</p>
+                <div class="mt-4">
+                    <button class="bg-green-500 text-white px-4 py-2 rounded">Bắt đầu Đồng bộ</button>
+                    <button class="bg-red-500 text-white px-4 py-2 rounded ml-2">Dừng Đồng bộ</button>
+                </div>
+                <div class="mt-4">
+                    <h4 class="text-md font-semibold">Lịch sử Đồng bộ:</h4>
+                    <ul class="list-disc pl-5">
+                        <li>Đồng bộ thành công lúc 10:00 AM</li>
+                        <li>Đồng bộ thất bại lúc 09:00 AM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiết lập Ứng dụng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .active-link {
+            background-color: #4A5568; /* Màu nền nổi bật cho liên kết đang hoạt động */
+            font-weight: bold; /* Tăng độ dày font cho liên kết đang chọn */
+        }
+        .hover-link:hover {
+            background-color: #2d3748; /* Màu nền khi hover */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-gray-800 text-white h-screen">
+            <div class="p-4">
+                <h1 class="text-2xl font-bold">Sapo</h1>
+            </div>
+            <nav class="mt-10">
+                <a href="tongquan.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Tổng quan</a>
+                <a href="donhang.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Đơn hàng</a>
+                <a href="sanpham.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Sản phẩm</a>
+                <a href="khachhang.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Khách hàng</a>
+                <a href="baocao.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Báo cáo</a>
+                <a href="khuyenmai.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Khuyến mãi</a>
+                <a href="giaodien.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Giao diện</a>
+                <a href="thietlap.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link active-link">Thiết lập ứng dụng</a>
+                <a href="dongbo.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Đồng bộ</a>
+                <a href="website.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Website</a>
+                <a href="blog.html" class="block py-2.5 px-4 rounded transition duration-200 hover-link">Blog</a>
+            </nav>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col items-start">
+                    <div class="flex items-center">
+                        <img src="Images/mrthanh.png" alt="Logo" class="h-10 w-10 rounded-full mr-2">
+                        <div>
+                            <span class="text-lg font-bold">Mr. Thanh</span>
+                            <div class="text-sm text-gray-500">Quản lý cấp cao</div> <!-- Thêm thông tin vị trí -->
+                        </div>
+                    </div>
+                    <a href="adminlogin.html" class="text-red-500 hover:underline">Đăng xuất</a> <!-- Thêm liên kết đăng xuất -->
+                </div>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded">Lưu Cài đặt</button>
+            </div>
+            <h2 class="text-2xl font-bold mb-4">Thiết lập Ứng dụng</h2>
+            <div class="bg-white p-4 rounded shadow mb-6">
+                <h3 class="text-lg font-bold">Thông tin Ứng dụng</h3>
+                <p class="text-gray-700">Quản lý và cấu hình thông tin cho ứng dụng của bạn.</p>
+                <div class="mt-4">
+                    <label class="block mb-2">Tên Ứng dụng:</label>
+                    <input type="text" class="border rounded p-2 w-full" placeholder="Nhập tên ứng dụng">
+                </div>
+                <div class="mt-4">
+                    <label class="block mb-2">Mô tả:</label>
+                    <textarea class="border rounded p-2 w-full" rows="4" placeholder="Nhập mô tả ứng dụng"></textarea>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow mb-6">
+                <h3 class="text-lg font-bold">Cài đặt Thông báo</h3>
+                <p class="text-gray-700">Cấu hình cài đặt thông báo để nhận thông tin cập nhật.</p>
+                <div class="mt-4 flex items-center">
+                    <input type="checkbox" id="email-notifications" class="mr-2">
+                    <label for="email-notifications">Nhận thông báo qua Email</label>
+                </div>
+                <div class="mt-4 flex items-center">
+                    <input type="checkbox" id="sms-notifications" class="mr-2">
+                    <label for="sms-notifications">Nhận thông báo qua SMS</label>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow mb-6">
+                <h3 class="text-lg font-bold">Cài đặt Bảo mật</h3>
+                <p class="text-gray-700">Quản lý cài đặt bảo mật cho ứng dụng.</p>
+                <div class="mt-4">
+                    <label class="block mb-2">Mật khẩu hiện tại:</label>
+                    <input type="password" class="border rounded p-2 w-full" placeholder="Nhập mật khẩu hiện tại">
+                </div>
+                <div class="mt-4">
+                    <label class="block mb-2">Mật khẩu mới:</label>
+                    <input type="password" class="border rounded p-2 w-full" placeholder="Nhập mật khẩu mới">
+                </div>
+                <div class="mt-4">
+                    <label class="block mb-2">Xác nhận mật khẩu mới:</label>
+                    <input type="password" class="border rounded p-2 w-full" placeholder="Xác nhận mật khẩu mới">
+                </div>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded mt-4">Xác nhận Đổi Mật khẩu</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
