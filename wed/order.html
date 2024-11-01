@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style-home.css">
+    <title>Vị CaFé - Thanh Toán Giỏ Hàng</title>
+    <script>
+        // Cập nhật hình ảnh cờ theo ngôn ngữ được chọn
+        function updateFlag() {
+            const select = document.getElementById('language-select');
+            const flagImage = document.getElementById('flag');
+            const selectedOption = select.options[select.selectedIndex];
+            flagImage.src = selectedOption.getAttribute('data-flag');
+        }
+
+        // Tìm kiếm sản phẩm
+        function search() {
+            const query = document.querySelector('.search-bar input[name="query"]').value; 
+            window.location.href = 'find.html?query=' + encodeURIComponent(query);
+        }
+
+        // Kiểm tra trạng thái đăng nhập
+        function checkLogin(destination) {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (isLoggedIn) {
+                window.location.href = destination;
+            } else {
+                alert('Bạn cần đăng nhập để truy cập tính năng này!');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Cập nhật trạng thái đăng nhập
+        function updateLoginStatus() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const loginLink = document.querySelector('.account a:nth-child(2)');
+            const cartCountElement = document.getElementById('cart-count');
+            if (isLoggedIn) {
+                loginLink.textContent = 'Đăng xuất';
+                loginLink.setAttribute('href', 'javascript:void(0);');
+                loginLink.onclick = function () {
+                    localStorage.setItem('isLoggedIn', 'false');
+                    sessionStorage.setItem('cartCount', 0); // Reset số lượng giỏ hàng về 0
+                    cartCountElement.style.display = 'none'; // Ẩn hiển thị giỏ hàng
+                    alert('Đã đăng xuất thành công!');
+                    location.reload(); // Tải lại trang để cập nhật trạng thái
+                };
+                // Hiển thị số lượng giỏ hàng hiện tại khi đã đăng nhập
+                const cartCount = parseInt(sessionStorage.getItem('cartCount')) || 0;
+                if (cartCount > 0) {
+                    cartCountElement.style.display = 'inline';
+                    cartCountElement.textContent = cartCount;
+                }
+            } else {
+                loginLink.textContent = 'Đăng nhập';
+                loginLink.setAttribute('href', 'login.html');
+                cartCountElement.style.display = 'none'; 
+            }
+        }
+
+        let quantity = 1; // Lưu số lượng sản phẩm 
+        // Hàm thay đổi số lượng sản phẩm
+        function changeQuantity(amount) {
+            quantity += amount;
+            if (quantity < 1) quantity = 1; // Đảm bảo số lượng không âm
+            document.getElementById('quantity').textContent = quantity;
+        }
+
+        // Hàm thêm sản phẩm vào giỏ hàng với số lượng đã chọn
+        function addToCartTemporary() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (!isLoggedIn) {
+                alert('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!');
+                window.location.href = 'login.html';
+                return;
+            }
+            let cartCount = parseInt(sessionStorage.getItem('cartCount')) || 0;
+            cartCount += quantity; // Thêm số lượng sản phẩm hiện tại vào giỏ hàng
+            sessionStorage.setItem('cartCount', cartCount);
+            updateCartDisplay(cartCount); // Cập nhật hiển thị giỏ hàng
+            alert(quantity + ' sản phẩm đã được thêm vào giỏ hàng!');
+            // Reset quantity về 1 sau khi thêm vào giỏ hàng
+            quantity = 1;
+            document.getElementById('quantity').textContent = quantity;
+        }
+
+        // Hàm cập nhật hiển thị số lượng sản phẩm trong giỏ hàng
+        function updateCartDisplay(cartCount) {
+            const cartCountElement = document.getElementById('cart-count');
+            if (cartCount > 0) {
+                cartCountElement.style.display = 'inline';
+                cartCountElement.textContent = cartCount;
+            } else {
+                cartCountElement.style.display = 'none';
+            }
+        }
+
+        function removeFromCart() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (!isLoggedIn) {
+                alert('Bạn cần đăng nhập để thực hiện thao tác này!');
+                window.location.href = 'login.html';
+                return;
+            }
+            let cartCount = parseInt(sessionStorage.getItem('cartCount')) || 0;
+            if (cartCount > 0) {
+                cartCount -= quantity; // Giảm số lượng đã chọn
+                if (cartCount < 0) cartCount = 0; // Đảm bảo không âm
+                sessionStorage.setItem('cartCount', cartCount);
+                updateCartDisplay(cartCount); // Cập nhật hiển thị giỏ hàng
+                alert('Đã xóa sản phẩm khỏi giỏ hàng.');
+            } else {
+                alert('Giỏ hàng hiện tại không có sản phẩm nào!');
+            }
+            // Reset số lượng sản phẩm về 1
+            quantity = 1;
+            document.getElementById('quantity').textContent = quantity;
+        }
+
+        // Gọi hàm cập nhật trạng thái đăng nhập khi tải trang
+        window.onload = function() {
+            updateLoginStatus();
+        };
+    </script>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 500px; /* Đảm bảo độ rộng giới hạn cho khung thanh toán */
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .product-list {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .summary {
+            text-align: center;
+            background-color: #D3D3D3;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: black;
+        }
+
+        .confirm-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .confirm-button:hover {
+            background-color: #218838;
+            font-size: large;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .btn{
+            background-color: #28a745;
+        }
+        #transferOptions {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">
+            <a href="home.html">
+                <img src="Images/LOGO.jpg" alt="Vị CaFé">
+            </a>
+        </div>
+        <div class="search-bar" style="margin:auto; width: 300px;">
+            <form onsubmit="event.preventDefault(); search();">
+                <input type="text" placeholder="Xin chào, bạn muốn dùng gì?" name="query" required>
+                <button type="submit">🔍</button>
+            </form>
+        </div>
+
+        <div class="account">
+            <a href="javascript:void(0);" onclick="checkLogin('account.html')">Tài khoản</a> | 
+            <a href="login.html">Đăng nhập</a>
+        </div>
+
+        <div class="language-select">
+            <img id="flag" src="https://storage.googleapis.com/a1aa/image/zvoEDfgml8TlaSnc5ptBwj7TUjq5X4fuxfYxTDHF3xrf4vnOB.jpg" alt="Flag">
+            <select id="language-select" onchange="updateFlag()">
+                <option value="en" data-flag="https://storage.googleapis.com/a1aa/image/zvoEDfgml8TlaSnc5ptBwj7TUjq5X4fuxfYxTDHF3xrf4vnOB.jpg">English</option>
+                <option value="vi" data-flag="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg">Tiếng Việt</option>
+            </select>
+        </div>
+
+        <div class="cart">
+            <ul>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn" onclick="checkLogin('giohang.html')">
+                        <i class="fa fa-shopping-cart"></i> Giỏ hàng
+                        <span id="cart-count" style="position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; display: none;">0</span>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="javascript:void(0);" onclick="checkLogin('order.html')">Đặt đơn mới</a>
+                        <a href="javascript:void(0);" onclick="checkLogin('history.html')">Lịch sử đơn hàng</a>
+                    </div>
+                </li>
+            </ul>
+        </div>           
+    </div>
+
+    <div class="menu-bar">
+        <ul>
+            <li class="dropdown">
+                <a href="javascript:void(0);"><i class="fa fa-list"></i> Danh mục sản phẩm</a>
+                <ul class="dropdown-content">
+                    <li><a href="cafe.html">Cà Phê</a></li>
+                    <li><a href="Tra.html">Trà</a></li>
+                    <li><a href="Trà sữa.html">Trà Sữa</a></li>
+                    <li><a href="Kem.html">Kem</a></li>
+                    <li><a href="index.html">Dessert</a></li>
+                </ul>
+            </li>
+            <li><a href="chinhsach.html"><i class="fas fa-exchange-alt"></i> Chính sách đổi trả</a></li>
+            <li><a href="lienhe.html"><i class="fas fa-map-marker-alt"></i> Liên hệ</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0);" onclick="toggleNewsDropdown(event)">Tin tức</a>
+                <ul class="dropdown-content hidden" id="news-dropdown">
+                    <li><a href="Hallo.html">Halloween Sales</a></li>
+                    <li><a href="Giáng_sinh.html">Giáng Sinh giảm giá</a></li>
+                    <li><a href="TV.html">Giáng sinh đặc quyền</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0);" onclick="alert('Đã gọi điện thành công');">
+                    <i class="fas fa-phone-alt"></i> Giao tận nơi 1900113114
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h2>Thanh Toán Giỏ Hàng</h2>
+        <div id="cart">
+            <h3>Sản Phẩm Trong Giỏ Hàng</h3>
+            <div class="cart-item">
+                <span>Cà phê sữa</span>
+                <span>
+                    <input type="number" min="1" value="2" onchange="updateCart()"> x 22,000 VND
+                </span>
+            </div>
+            <div class="cart-item">
+                <span>Mousse gấu chocolate   </span>
+                <span>
+                    <input type="number" min="1" value="1" onchange="updateCart()"> x 39,000 VND
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><input type="checkbox" id="useSavedInfo" onclick="toggleUserInfo()"> Sử dụng thông tin đã lưu</label>
+            <input type="text" id="name" placeholder="Nhập tên" required>
+            <input type="text" id="phone" placeholder="Nhập số điện thoại" required>
+        </div>
+
+        <!-- Địa chỉ giao hàng -->
+        <div class="form-group">
+            <label><input type="checkbox" id="useSavedAddress" onclick="toggleAddress()"> Sử dụng địa chỉ đã lưu</label>
+            <input type="text" id="address" placeholder="Nhập địa chỉ mới" required>
+        </div>
+
+        <!-- Phương thức thanh toán -->
+        <div class="form-group">
+            <label>Phương Thức Thanh Toán</label>
+            <select id="paymentMethod" onchange="togglePaymentGateway()">
+                <option value="cash">Tiền mặt</option>
+                <option value="bank">Chuyển khoản</option>
+            </select>
+        </div>
+
+        <!-- Tùy chọn chuyển khoản -->
+        <div id="transferOptions">
+            <label>Chọn phương thức chuyển khoản</label>
+            <select id="transferMethod">
+                <option value="momo">Momo</option>
+                <option value="zalopay">ZaloPay</option>
+                <option value="vnpay">VNPay</option>
+            </select>
+        </div>
+
+        <!-- Tóm tắt hoá đơn -->
+        <div class="summary">
+            <h3>Tóm Tắt Hoá Đơn</h3>
+            <p>Tổng Số Sản Phẩm: <span id="totalItems">3</span></p>
+            <p>Tổng Tiền: <span id="totalAmount">400,000 VND</span></p>
+        </div>
+
+        <button class="btn" onclick="submitOrder()"><big>Xác Nhận Thanh Toán</big></button>
+    </div>
+
+    <footer class="footer" style="width: 100%">
+        <p>&copy; 2024 Vị Coffee. Bảo lưu mọi quyền.</p>
+        <div class="social-icons">
+        <a href="javascript:void(0);"><img src="Images/Face.jpg" alt="Facebook"></a>
+        <a href="javascript:void(0);"><img src="Images/Ig.jpg" alt="Instagram"></a>
+        <a href="javascript:void(0);"><img src="Images/tws.jpg" alt="Twitter"></a>
+    </div>
+    <p><a href="chinhsach.html">Chính sách bảo mật</a> | <a href="chinhsach.html">Điều khoản dịch vụ</a></p>      
+</footer>
+
+    <script>
+        // Giả định thông tin địa chỉ và thông tin người dùng đã lưu
+        const savedName = "Mr.Thanh";
+        const savedAddress = "113 Nguyễn Trãi, Phường 3, Quận 5";
+        const savedPhone = "0912345678";
+
+        // Cập nhật giỏ hàng và tóm tắt hóa đơn
+        function updateCart() {
+            const items = document.querySelectorAll("#cart input[type='number']");
+            let totalItems = 0, totalAmount = 0;
+            items.forEach((item, index) => {
+                const price = index === 0 ? 100000 : 150000;
+                totalItems += parseInt(item.value);
+                totalAmount += parseInt(item.value) * price;
+            });
+            document.getElementById("totalItems").textContent = totalItems;
+            document.getElementById("totalAmount").textContent = totalAmount.toLocaleString("vi-VN") + " VND";
+        }
+
+        // Sử dụng địa chỉ đã lưu hoặc nhập mới
+        function toggleAddress() {
+            const useSavedAddress = document.getElementById("useSavedAddress").checked;
+            document.getElementById("address").value = useSavedAddress ? savedAddress : "";
+            document.getElementById("address").disabled = useSavedAddress;
+        }
+
+        // Sử dụng thông tin đã lưu cho tên, SĐT và địa chỉ
+        function toggleUserInfo() {
+            const useSavedInfo = document.getElementById("useSavedInfo").checked;
+            document.getElementById("name").value = useSavedInfo ? savedName : "";
+            document.getElementById("phone").value = useSavedInfo ? savedPhone : "";
+            document.getElementById("address").value = useSavedInfo ? savedAddress : "";
+            document.getElementById("name").disabled = useSavedInfo;
+            document.getElementById("phone").disabled = useSavedInfo;
+            document.getElementById("address").disabled = useSavedInfo;
+        }
+
+        // Hiển thị hoặc ẩn các tùy chọn thanh toán
+        function togglePaymentGateway() {
+            const paymentMethod = document.getElementById("paymentMethod").value;
+            document.getElementById("transferOptions").style.display = paymentMethod === "bank" ? "block" : "none";
+        }
+
+        // Xử lý gửi đơn hàng
+        function submitOrder() {
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const address = document.getElementById("address").value;
+
+            if (!name || !phone || !address) {
+                alert("Vui lòng nhập đầy đủ thông tin.");
+                return;
+            }
+
+            alert(`Đơn hàng đã được gửi!\nTên: ${name}\nSĐT: ${phone}\nĐịa chỉ: ${address}`);
+
+            // Chuyển hướng về trang home
+            window.location.href = "home.html"; 
+        }
+
+        // Khởi tạo giỏ hàng ban đầu
+        updateCart();
+    </script>
+</body>
+</html>
