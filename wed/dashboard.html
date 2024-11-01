@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Vị Cafe - Bảng Điều Khiển</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="flex">
+        <!-- Thanh bên -->
+        <aside class="w-64 bg-gray-800 text-white h-screen flex flex-col justify-between">
+            <div>
+                <div class="p-4 text-center">
+                    <h1 class="text-2xl font-bold">Quản Lý Vị Cafe</h1>
+                    <p>Admin: Mr. Thanh <span class="text-sm">(Quản lý cấp cao)</span></p>
+                </div>
+                <nav class="mt-6">
+                    <a href="dashboard.html" class="block py-2 px-4 bg-gray-700 rounded mt-2">Bảng Điều Khiển</a>
+                    <a href="user_management.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2">Quản Lý Người Dùng</a>
+                    <a href="add_product.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2">Thêm Sản Phẩm</a>
+                    <a href="order_management.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2">Quản Lý Đơn Hàng</a>
+                    <a href="statistics.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2">Thống Kê Kinh Doanh</a>
+                </nav>
+            </div>
+            <div class="p-4 text-center text-gray-400 text-sm">
+                © 2024 Quản Lý Vị Cafe
+            </div>
+        </aside>
+
+        <!-- Nội dung chính -->
+        <main class="flex-1 p-6 space-y-6">
+            <!-- Phần chào mừng -->
+            <section>
+                <h2 class="text-3xl font-bold mb-2">Xin chào, Mr. Thanh!</h2>
+                <p class="text-gray-700">Dưới đây là tổng quan hệ thống quản lý của quán cafe.</p>
+            </section>
+
+            <!-- Thống kê tổng quan -->
+            <section class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="p-4 bg-white rounded-lg shadow">
+                    <h3 class="text-xl font-bold">Tổng Người Dùng</h3>
+                    <p class="text-3xl font-semibold text-blue-500">125</p>
+                </div>
+                <div class="p-4 bg-white rounded-lg shadow">
+                    <h3 class="text-xl font-bold">Tổng Sản Phẩm</h3>
+                    <p class="text-3xl font-semibold text-green-500">85</p>
+                </div>
+                <div class="p-4 bg-white rounded-lg shadow">
+                    <h3 class="text-xl font-bold">Tổng Đơn Hàng</h3>
+                    <p class="text-3xl font-semibold text-red-500">223</p>
+                </div>
+                <div class="p-4 bg-white rounded-lg shadow">
+                    <h3 class="text-xl font-bold">Doanh Thu Tháng</h3>
+                    <p class="text-3xl font-semibold text-purple-500">65,000,000₫</p>
+                </div>
+            </section>
+
+            <!-- Phần biểu đồ doanh thu -->
+            <section class="bg-white p-4 rounded-lg shadow">
+                <h3 class="text-2xl font-bold mb-4">Biểu Đồ Doanh Thu</h3>
+                <canvas id="revenueChart" class="w-full h-64"></canvas>
+            </section>
+
+            <!-- Hoạt động mới nhất -->
+            <section class="bg-white p-4 rounded-lg shadow">
+                <h3 class="text-2xl font-bold mb-4">Hoạt Động Mới Nhất</h3>
+                <ul class="space-y-2">
+                    <li class="flex justify-between">
+                        <span>Người dùng <strong>Mr.Thanh</strong> vừa đặt đơn hàng.</span>
+                        <span class="text-gray-500 text-sm">10 phút trước</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Sản phẩm <strong>Cà phê sữa đá</strong> đã được cập nhật.</span>
+                        <span class="text-gray-500 text-sm">30 phút trước</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Người dùng <strong>Phạm Minh Huy</strong> vừa đăng ký tài khoản.</span>
+                        <span class="text-gray-500 text-sm">1 giờ trước</span>
+                    </li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('revenueChart').getContext('2d');
+        const revenueChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4'], // Nhãn trục x
+                datasets: [{
+                    label: 'Doanh Thu (triệu VNĐ)', // Tiêu đề biểu đồ
+                    data: [15, 20, 25, 30], // Dữ liệu doanh thu từng tuần
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Màu nền đường
+                    borderColor: 'rgba(75, 192, 192, 1)', // Màu viền đường
+                    borderWidth: 2 // Độ dày đường
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true // Bắt đầu trục y từ 0
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
