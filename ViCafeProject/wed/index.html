@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Vị CaFé</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style-home.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <script>
+            // Cập nhật hình ảnh cờ theo ngôn ngữ được chọn
+            function updateFlag() {
+                const select = document.getElementById('language-select');
+                const flagImage = document.getElementById('flag');
+                const selectedOption = select.options[select.selectedIndex];
+                flagImage.src = selectedOption.getAttribute('data-flag');
+            };
+
+            // Tìm kiếm sản phẩm
+            function search() {
+                const query = document.querySelector('.search-bar input[name="query"]').value; 
+                window.location.href = 'find.html?query=' + encodeURIComponent(query);
+            };
+
+            // Chuyển đổi trạng thái hiển thị menu sản phẩm
+            function toggleMenu() {
+                var menu = document.getElementById('product-list');
+                menu.classList.toggle('hidden');
+            };
+
+            //Tìm kiếm nâng cao
+            function performAdvancedSearch(event) {
+                event.preventDefault();
+                const searchTerm = document.getElementById('search-term').value; 
+                const category = document.getElementById('category').value;
+                const priceRange = document.getElementById('price-range').value;
+                window.location.href = 'find.html';
+            };
+
+            // Chuyển đổi trạng thái hiển thị dropdown tin tức
+            function toggleNewsDropdown(event) {
+                event.preventDefault();
+                var dropdown = document.getElementById('news-dropdown');
+                dropdown.classList.toggle('hidden');
+            };
+
+            // Kiểm tra trạng thái đăng nhập
+            function checkLogin(destination) {
+                const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                if (isLoggedIn) {
+                    window.location.href = destination;
+                } else {
+                    alert('Bạn cần đăng nhập để truy cập tính năng này!');
+                    window.location.href = 'login.html';
+                }
+            };
+
+            function showPage(page) {
+                document.getElementById('page1').classList.add('hidden');
+                document.getElementById('page2').classList.add('hidden');
+                if (page === 1) {
+                    document.getElementById('page1').classList.remove('hidden');
+                } else {
+                    document.getElementById('page2').classList.remove('hidden');
+                }
+            };
+
+            // Cập nhật trạng thái đăng nhập
+            function updateLoginStatus() {
+                // Đặt mặc định isLoggedIn là 'false' nếu chưa có trong localStorage
+                if (localStorage.getItem('isLoggedIn') === null) {
+                    localStorage.setItem('isLoggedIn', 'false');
+                }
+
+                const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+                const loginLink = document.querySelector('.account a:nth-child(2)');
+                const cartCountElement = document.getElementById('cart-count');
+
+                if (isLoggedIn) {
+                    loginLink.textContent = 'Đăng xuất';
+                    loginLink.setAttribute('href', 'javascript:void(0);');
+                    loginLink.onclick = function () {
+                        localStorage.setItem('isLoggedIn', 'false');
+                        sessionStorage.setItem('cartCount', 0); // Reset số lượng giỏ hàng về 0
+                        cartCountElement.style.display = 'none'; // Ẩn hiển thị giỏ hàng
+                        alert('Đã đăng xuất thành công!');
+                        location.reload();
+                    };
+
+                    // Hiển thị số lượng giỏ hàng hiện tại khi đã đăng nhập
+                    const cartCount = parseInt(sessionStorage.getItem('cartCount')) || 0;
+                    if (cartCount > 0) {
+                        cartCountElement.style.display = 'inline';
+                        cartCountElement.textContent = cartCount;
+                    } else {
+                        cartCountElement.style.display = 'none';
+                    }
+                } else {
+                    loginLink.textContent = 'Đăng nhập';
+                    loginLink.setAttribute('href', 'login.html');
+                    cartCountElement.style.display = 'none';
+                }
+            }
+
+            // Gọi updateLoginStatus và khởi tạo Swiper khi trang được tải
+            document.addEventListener("DOMContentLoaded", function() {
+                updateLoginStatus();
+
+                // Khởi tạo Swiper
+                const swiper = new Swiper('.swiper-container', {
+                    loop: true,
+                    autoplay: {
+                        delay: 3000, // Tự động chuyển sau 3 giây
+                        disableOnInteraction: false, // Tiếp tục tự động sau khi người dùng tương tác
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next', // Nút chuyển tiếp
+                        prevEl: '.swiper-button-prev', // Nút quay lại
+                    },
+                    pagination: {
+                        el: '.swiper-pagination', // Dấu chấm điều hướng
+                        clickable: true, // Cho phép bấm vào chấm tròn để chuyển slide
+                    },
+                });
+            });
+
+            function login() {
+                // Giả sử hàm này được gọi khi người dùng đăng nhập thành công
+                localStorage.setItem('isLoggedIn', 'true');
+                updateLoginStatus(); // Cập nhật giao diện ngay lập tức
+            };
+        </script>
+    </head>
+    
+    <body>
+        <div class="top-bar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="Images/LOGO.jpg" alt="Vị CaFé">
+                </a>
+            </div>
+            <div class="search-bar" style="margin:auto; width: 300px;">
+                <form onsubmit="event.preventDefault(); search();">
+                    <input type="text" placeholder="Xin chào, bạn muốn dùng gì?" name="query" required>
+                    <button type="submit">🔍</button>
+                </form>
+            </div>
+
+            <div class="account">
+                <a href="javascript:void(0);" onclick="checkLogin('account.html')">Tài khoản</a> | 
+                <a href="login.html">Đăng nhập</a>
+            </div>
+
+            <div class="language-select">
+                <img id="flag" src="https://storage.googleapis.com/a1aa/image/zvoEDfgml8TlaSnc5ptBwj7TUjq5X4fuxfYxTDHF3xrf4vnOB.jpg" alt="Flag">
+                <select id="language-select" onchange="updateFlag()">
+                    <option value="en" data-flag="https://storage.googleapis.com/a1aa/image/zvoEDfgml8TlaSnc5ptBwj7TUjq5X4fuxfYxTDHF3xrf4vnOB.jpg">English</option>
+                    <option value="vi" data-flag="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg">Tiếng Việt</option>
+                </select>
+            </div>
+
+            <div class="cart">
+                <ul>
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropbtn">
+                            <i class="fa fa-shopping-cart"></i> Giỏ hàng
+                            <span id="cart-count" style="position: absolute; top: 0; right: 0; background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; display: none;">0</span>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="javascript:void(0);" onclick="checkLogin('giohang.html')">Đặt đơn mới</a>
+                            <a href="javascript:void(0);" onclick="checkLogin('history.html')">Lịch sử đơn hàng</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>                    
+        </div>
+
+        <div class="menu-bar">
+            <ul>
+                <li class="dropdown">
+                    <a href="javascript:void(0);"><i class="fa fa-list"></i> Danh mục sản phẩm</a>
+                    <ul class="dropdown-content">
+                        <li><a href="cafe.html">Cà Phê</a></li>
+                        <li><a href="Tra.html">Trà</a></li>
+                        <li><a href="Trà sữa.html">Trà Sữa</a></li>
+                        <li><a href="Kem.html">Kem</a></li>
+                        <li><a href="Dessert.html">Dessert</a></li>
+                    </ul>
+                </li>
+                <li><a href="chinhsach.html"><i class="fas fa-exchange-alt"></i> Chính sách đổi trả</a></li>
+                <li><a href="lienhe.html"><i class="fas fa-map-marker-alt"></i> Liên hệ</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" onclick="toggleNewsDropdown(event)"><i class="fas fa-newspaper"></i> Tin tức</a>
+                    <ul class="dropdown-content hidden" id="news-dropdown">
+                        <li><a href="Hallo.html">Halloween Sales</a></li>
+                        <li><a href="Giáng_sinh.html">Giáng Sinh giảm giá</a></li>
+                        <li><a href="TV.html">Giáng sinh đặc quyền</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" onclick="alert('Đã gọi điện thành công');">
+                        <i class="fas fa-phone-alt"></i> Giao tận nơi 1900113114
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main-content">  
+            <div class="banner-slider">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="Images/halloween1.jpg" alt="Khuyến mãi Halloween">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="Images/christ.jpg" alt="Khuyến mãi Giáng Sinh">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="Images/Tv.jpg" alt="Khuyến mãi TV">
+                        </div>
+                    </div>
+                    
+                    <!-- Nút điều hướng trái/phải -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    
+                    <!-- Dấu chấm điều hướng phía dưới -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+            
+
+            <div class="banner">
+                <div class="search-advanced">
+                    <h2>Tìm kiếm nâng cao</h2>
+                    <form id="advanced-search-form" onsubmit="performAdvancedSearch(event);">
+                        <input type="text" id="search-term" placeholder="Từ khóa..." required>
+                        <select id="category">
+                            <option value="">Tất cả các danh mục</option>
+                            <option value="category1">Cà Phê</option>
+                            <option value="category2">Trà</option>
+                            <option value="category3">Trà Sữa</option>
+                            <option value="category4">Kem</option>
+                            <option value="category5">Dessert</option>
+                        </select>
+                        <select id="price-range">
+                            <option value="">Khoảng giá</option>
+                            <option value="0-10000">Dưới 10.000</option>
+                            <option value="10000-50000">10.000 - 50.000</option>
+                            <option value="50000-100000">50.000 - 100.000</option>
+                            <option value="100000-500000">Trên 100.000</option>
+                        </select>
+                        <button type="submit">Tìm kiếm</button>
+                    </form>
+                </div>
+                
+                <div class="banner">
+                    <div id="page1" class="banner-container">
+                        <div class="banner-item "><img src="Images/banner 1.jpg" alt=""></div>
+                        <div class="banner-item "><img src="Images/banner 2.jpg" alt=""></div>
+                        <div class="banner-item "><img src="Images/banner 3.jpg" alt=""></div>
+                    </div>
+                    <div id="page2" class="banner-container hidden">
+                        <div class="banner-item "><img src="Images/banner 4.jpg" alt=""></div>
+                        <div class="banner-item "><img src="Images/banner 5.jpg" alt=""></div>
+                        <div class="banner-item "><img src="Images/banner 6.jpg" alt=""></div>
+                    </div>    
+                </div>
+            </div> 
+            
+            <div class="pagination">
+                <button id="prevBtn" onclick="showPage(1)">Trang 1</button>
+                <button id="nextBtn" onclick="showPage(2)">Trang 2</button>
+            </div>   
+
+            <footer class="footer" style="width: 100%">
+                <p>&copy; 2024 Vị Coffee. Bảo lưu mọi quyền.</p>
+                <div class="social-icons">
+                <a href="javascript:void(0);"><img src="Images/Face.jpg" alt="Facebook"></a>
+                <a href="javascript:void(0);"><img src="Images/Ig.jpg" alt="Instagram"></a>
+                <a href="javascript:void(0);"><img src="Images/tws.jpg" alt="Twitter"></a>
+            </div>
+            <p><a href="chinhsach.html">Chính sách bảo mật</a> | <a href="chinhsach.html">Điều khoản dịch vụ</a></p>      
+        </footer> 
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> 
+    </body>
+</html>

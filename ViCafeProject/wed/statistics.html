@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thống Kê Kinh Doanh</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+<style>
+    /* Highlight the active link */
+.active {
+    background-color: #4B5563; /* Darker gray for active state */
+    color: #FFFFFF;            /* Ensure text color is white */
+}
+
+</style>
+<body class="bg-gray-100 flex">
+   <!-- Sidebar Menu -->
+<aside class="w-64 bg-gray-800 text-white h-screen sticky top-0 flex flex-col justify-between">
+    <div>
+        <div class="p-6 text-center">
+            <img src="Images/LOGO.jpg" alt="Logo Quản Lý Vị Cafe" 
+             class="h-20 w-20 mx-auto mb-4 rounded-full border-4 border-gray-600 shadow-lg">
+            <h1 class="text-2xl font-bold">Quản Lý Vị Cafe</h1>
+            <p>Admin: Mr. Thanh <span class="text-sm">(Quản lý cấp cao)</span></p>
+        </div>
+        <div class="p-4 text-center">
+            <button onclick="window.location.href='adminlogin.html'" 
+                    class="w-full py-2 px-4 bg-gray-700 text-gray-200 hover:bg-gray-600 hover:text-white font-semibold rounded-lg transition duration-200 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                Đăng Xuất
+            </button>
+        </div>
+        <nav class="mt-6">
+            <a href="dashboard.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2">Bảng Điều Khiển</a>
+            <a href="user_management.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2">Quản Lý Người Dùng</a>
+            <a href="add_product.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2">Quản Lý Sản Phẩm</a>
+            <a href="order_management.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2">Quản Lý Đơn Hàng</a>
+            <a href="statistics.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2 active">Thống Kê Kinh Doanh</a>
+        </nav>
+    </div>  
+    <div class="p-4 text-center text-gray-400 text-sm">
+        © 2024 Quản Lý Vị Cafe
+    </div>
+</aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-8">
+        <h2 class="text-3xl font-bold mb-6">Thống Kê Kinh Doanh</h2>
+
+        <!-- Date Range Filter -->
+        <div class="mb-4 flex space-x-4">
+            <div>
+                <label class="block mb-2">Từ Ngày</label>
+                <input type="date" id="startDate" class="p-2 border rounded">
+            </div>
+            <div>
+                <label class="block mb-2">Đến Ngày</label>
+                <input type="date" id="endDate" class="p-2 border rounded">
+            </div>
+            <button onclick="filterByDate()" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mt-2 self-end">Lọc Thống Kê</button>
+        </div>
+
+        <!-- Product Statistics -->
+        <h3 class="text-2xl font-bold mt-8 mb-4">Thống Kê Sản Phẩm</h3>
+        <table class="min-w-full bg-white rounded-lg shadow-lg">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="py-3 px-6 text-left">Mặt Hàng</th>
+                    <th class="py-3 px-6 text-left">Số Lượng Bán</th>
+                    <th class="py-3 px-6 text-left">Tổng Doanh Thu</th>
+                    <th class="py-3 px-6 text-left">Chi Tiết</th>
+                </tr>
+            </thead>
+            <tbody id="productTable" class="divide-y divide-gray-200"></tbody>
+        </table>
+
+        <!-- Customer Statistics -->
+        <h3 class="text-2xl font-bold mt-8 mb-4">Thống Kê Khách Hàng</h3>
+        <table class="min-w-full bg-white rounded-lg shadow-lg">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="py-3 px-6 text-left">Khách Hàng</th>
+                    <th class="py-3 px-6 text-left">Doanh Thu</th>
+                    <th class="py-3 px-6 text-left">Chi Tiết</th>
+                </tr>
+            </thead>
+            <tbody id="customerTable" class="divide-y divide-gray-200"></tbody>
+        </table>
+
+        <!-- Invoice Modal -->
+        <div id="invoiceModal" class="fixed inset-0 hidden bg-gray-900 bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white p-6 rounded-lg w-96 shadow-lg">
+                <h4 class="text-xl font-bold mb-4 text-center" id="invoiceTitle">Chi Tiết Hóa Đơn</h4>
+                <div id="invoiceContent" class="mb-4">
+                    <!-- Invoice details will be dynamically added here -->
+                </div>
+                <button onclick="closeModal()" class="w-full mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">Đóng</button>
+            </div>
+        </div>
+
+        <script>
+            // Sample product data
+            const products = [
+                { id: 1, name: 'Cà Phê Đen', price: 30000, sales: 150 },
+                { id: 2, name: 'Cà Phê Sữa', price: 22000, sales: 200 },
+                { id: 3, name: 'Bạc Xỉu', price: 27000, sales: 100 },
+                { id: 4, name: 'Trà Đào Cam Sả - Đá', price: 49000, sales: 50 },
+                { id: 5, name: 'Trà Sữa Truyền Thống', price: 25000, sales: 110 }
+            ];
+
+            // Sample customer data
+            const customers = [
+                { name: 'Mr. Thanh', revenue: 225000, purchases: [{ product: 'Cà Phê Đen', quantity: 5, price: 30000 }, { product: 'Mousse Tiramisu', quantity: 2, price: 35000 }] },
+                { name: 'Đặng Văn Giang', revenue: 300000, purchases: [{ product: 'Cà Phê Sữa', quantity: 10, price: 22000 }] }
+            ];
+
+            function renderProductStatistics() {
+                const productTable = document.getElementById('productTable');
+                productTable.innerHTML = '';
+                let totalRevenue = 0;
+
+                products.forEach(product => {
+                    const totalProductRevenue = product.sales * product.price;
+                    totalRevenue += totalProductRevenue;
+                    productTable.innerHTML += `
+                        <tr>
+                            <td class="py-4 px-6">${product.name}</td>
+                            <td class="py-4 px-6">${product.sales}</td>
+                            <td class="py-4 px-6">${totalProductRevenue.toLocaleString()} VNĐ</td>
+                            <td class="py-4 px-6">
+                                <a href="#" onclick="event.preventDefault(); viewProductInvoices('${product.name}', ${product.sales}, ${totalProductRevenue})" class="text-blue-500 hover:underline">Xem Hóa Đơn</a>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                productTable.innerHTML += `
+                    <tr class="font-bold">
+                        <td class="py-4 px-6" colspan="2">Tổng Doanh Thu</td>
+                        <td class="py-4 px-6">${totalRevenue.toLocaleString()} VNĐ</td>
+                        <td class="py-4 px-6"></td>
+                    </tr>
+                `;
+            }
+
+            function renderCustomerStatistics() {
+                const customerTable = document.getElementById('customerTable');
+                customerTable.innerHTML = '';
+                
+                customers.forEach(customer => {
+                    customerTable.innerHTML += `
+                        <tr>
+                            <td class="py-4 px-6">${customer.name}</td>
+                            <td class="py-4 px-6">${customer.revenue.toLocaleString()} VNĐ</td>
+                            <td class="py-4 px-6">
+                                <a href="#" onclick="event.preventDefault(); viewCustomerInvoices('${customer.name}')" class="text-blue-500 hover:underline">Xem Hóa Đơn</a>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+
+            function viewProductInvoices(productName, sales, totalRevenue) {
+    // Find the product's price by its name
+    const product = products.find(p => p.name === productName);
+    const pricePerUnit = product ? product.price : 0;
+
+    const invoiceContent = `
+        <div class="border-b pb-2 mb-2">
+            <p><strong>Sản Phẩm:</strong> ${productName}</p>
+            <p><strong>Ngày:</strong> ${moment().format("DD/MM/YYYY")}</p>
+            <p><strong>Giá Sản Phẩm:</strong> ${pricePerUnit.toLocaleString()} VNĐ</p>
+        </div>
+        <div class="border-t border-gray-200 mt-4 pt-2 font-bold">
+            <div class="flex justify-between">
+                <span>Số Lượng Bán</span>
+                <span>${sales}</span>
+            </div>
+            <div class="flex justify-between mt-2">
+                <span>Tổng Doanh Thu</span>
+                <span>${totalRevenue.toLocaleString()} VNĐ</span>
+            </div>
+        </div>
+    `;
+
+                document.getElementById('invoiceContent').innerHTML = invoiceContent;
+                document.getElementById('invoiceTitle').innerText = `Hóa Đơn của ${productName}`;
+                document.getElementById('invoiceModal').classList.remove('hidden');
+            }
+
+            function viewCustomerInvoices(customerName) {
+                const customer = customers.find(c => c.name === customerName);
+                const purchaseDetails = customer.purchases.map(purchase => `
+                    <div class="flex justify-between">
+                        <span>${purchase.product}</span>
+                        <span>${purchase.quantity} x ${purchase.price.toLocaleString()} VNĐ</span>
+                    </div>
+                `).join('');
+
+                const totalRevenue = customer.purchases.reduce((total, item) => total + item.quantity * item.price, 0);
+
+                const invoiceContent = `
+                    <div class="border-b pb-2 mb-2">
+                        <p><strong>Khách Hàng:</strong> ${customerName}</p>
+                        <p><strong>Ngày:</strong> ${moment().format("DD/MM/YYYY")}</p>
+                    </div>
+                    <div class="border-t border-gray-200 pt-2">
+                        ${purchaseDetails}
+                    </div>
+                    <div class="border-t border-gray-200 mt-4 pt-2 font-bold">
+                        <div class="flex justify-between">
+                            <span>Tổng Cộng</span>
+                            <span>${totalRevenue.toLocaleString()} VNĐ</span>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('invoiceContent').innerHTML = invoiceContent;
+                document.getElementById('invoiceTitle').innerText = `Hóa Đơn của ${customerName}`;
+                document.getElementById('invoiceModal').classList.remove('hidden');
+            }
+
+            function closeModal() {
+                document.getElementById('invoiceModal').classList.add('hidden');
+            }
+
+            function filterByDate() {
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+                alert(`Lọc thống kê từ ${startDate} đến ${endDate}`);
+            }
+
+            renderProductStatistics();
+            renderCustomerStatistics();
+        </script>
+    </div>
+</body>
+</html>
