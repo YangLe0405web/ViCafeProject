@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản Lý Vị Cafe - Quản Lý Người Dùng</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<style>
+    /* Highlight the active link */
+    .active {
+            background-color: #4B5563; /* Darker gray for active state */
+            color: #FFFFFF;            /* Ensure text color is white */
+        }
+
+        /* Style for active and inactive user status */
+        .status-active {
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }
+
+        .status-inactive {
+            background-color: #F44336; /* Red */
+            color: white;
+        }
+</style>
+<body class="bg-gray-100 flex">
+   <!-- Sidebar Menu -->
+    <aside class="w-64 bg-gray-800 text-white h-screen sticky top-0 flex flex-col justify-between">
+        <div>
+            <div class="p-6 text-center">
+                <img src="Images/LOGO.jpg" alt="Logo Quản Lý Vị Cafe" 
+                     class="h-20 w-20 mx-auto mb-4 rounded-full border-4 border-gray-600 shadow-lg">
+                <h1 class="text-2xl font-bold">Quản Lý Vị Cafe</h1>
+                <p>Admin: Mr. Thanh <span class="text-sm">(Quản lý cấp cao)</span></p>
+            </div>
+            <div class="p-4 text-center">
+                <button onclick="window.location.href='adminlogin.html'" 
+                        class="w-full py-2 px-4 bg-gray-700 text-gray-200 hover:bg-gray-600 hover:text-white font-semibold rounded-lg transition duration-200 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                    Đăng Xuất
+                </button>
+            </div>
+            <nav class="mt-6">
+                <a href="dashboard.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2">Bảng Điều Khiển</a>
+                <a href="user_management.html" class="block py-2 px-4 bg-gray-900 text-white rounded mt-2 active">Quản Lý Người Dùng</a>
+                <a href="add_product.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2">Quản Lý Sản Phẩm</a>
+                <a href="order_management.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2">Quản Lý Đơn Hàng</a>
+                <a href="statistics.html" class="block py-2 px-4 hover:bg-gray-700 rounded mt-2">Thống Kê Kinh Doanh</a>
+            </nav>
+        </div>  
+        <div class="p-4 text-center text-gray-400 text-sm">
+            © 2024 Quản Lý Vị Cafe
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-8">
+        <!-- Title and Add User Button -->
+        <h2 class="text-3xl font-bold mb-6">Quản Lý Người Dùng</h2>
+        <button onclick="toggleAddUser()" class="bg-blue-500 text-white py-2 px-6 rounded hover:bg-blue-600 mb-4">Thêm Người Dùng</button>
+
+        <!-- Search Bar -->
+        <div class="mb-4">
+            <input type="text" id="searchInput" onkeyup="searchUsers()" placeholder="Tìm kiếm người dùng..." class="w-full p-2 border rounded">
+        </div>
+
+        <!-- Notification Message -->
+        <div id="notification" class="hidden mb-4 p-4 bg-green-100 text-green-700 rounded"></div>
+
+        <!-- Add/Edit User Modal -->
+        <div id="userModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white p-8 rounded-lg w-1/3">
+                <h2 id="modalTitle" class="text-2xl font-bold mb-4">Thêm Người Dùng</h2>
+                <input type="hidden" id="userId">
+                
+                <!-- User Name -->
+                <div class="mb-4">
+                    <label class="block text-gray-700">Tên Người Dùng</label>
+                    <input type="text" id="userName" class="w-full p-2 border rounded" required>
+                </div>
+                
+                <!-- Email -->
+                <div class="mb-4">
+                    <label class="block text-gray-700">Email</label>
+                    <input type="email" id="userEmail" class="w-full p-2 border rounded" required>
+                </div>
+                
+                <!-- Address -->
+                <div class="mb-4">
+                    <label class="block text-gray-700">Địa Chỉ</label>
+                    <input type="text" id="userAddress" class="w-full p-2 border rounded" required>
+                </div>
+                
+                <!-- Username -->
+                <div class="mb-4">
+                    <label class="block text-gray-700">Tài Khoản</label>
+                    <input type="text" id="userAccount" class="w-full p-2 border rounded" required>
+                </div>
+                
+                <!-- Password -->
+                <div class="mb-4">
+                    <label class="block text-gray-700">Mật Khẩu</label>
+                    <input type="text" id="userPassword" class="w-full p-2 border rounded" required>
+                </div>
+
+                <div class="flex justify-end space-x-2">
+                    <button onclick="saveUser()" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Lưu</button>
+                    <button onclick="closeModal()" class="bg-gray-300 py-2 px-4 rounded hover:bg-gray-400">Hủy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Table -->
+        <table class="min-w-full bg-white rounded-lg shadow-lg">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="py-3 px-6 text-left">STT</th>
+                    <th class="py-3 px-6 text-left">Tên Người Dùng</th>
+                    <th class="py-3 px-6 text-left">Email</th>
+                    <th class="py-3 px-6 text-left">Trạng Thái</th>
+                    <th class="py-3 px-6 text-left">Hành Động</th>
+                </tr>
+            </thead>
+            <tbody id="userTable" class="divide-y divide-gray-200">
+                <!-- User Data Rows -->
+            </tbody>
+        </table>
+
+        <!-- Pagination Controls -->
+        <div class="flex justify-between items-center mt-4">
+            <div>
+                <button onclick="previousPage()" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" id="previousBtn">Trang Trước</button>
+                <button onclick="nextPage()" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" id="nextBtn">Trang Kế Tiếp</button>
+            </div>
+            <div class="text-gray-700" id="pageInfo">
+                Trang <span id="currentPage">1</span> / <span id="totalPages">1</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // User data array with fabricated details
+        let users = [
+    { id: 1, name: 'Mr.Thanh', email: 'mrthanh@example.com', status: 'active', address: 'Hà Nội', account: 'mrthanh', password: '12345' },
+    { id: 2, name: 'Trần Minh Bạn', email: 'tmb@example.com', status: 'inactive', address: 'Hồ Chí Minh', account: 'tmb', password: 'password1' },
+    { id: 3, name: 'Nguyễn Văn A', email: 'nguyenvana@example.com', status: 'active', address: 'Hà Nội', account: 'nguyenvana', password: 'password123' },
+    { id: 4, name: 'Lê Thị Bích', email: 'lethibich@example.com', status: 'inactive', address: 'Hải Phòng', account: 'lethibich', password: 'abcd1234' },
+    { id: 5, name: 'Phạm Quốc Cường', email: 'phamquoccuong@example.com', status: 'active', address: 'Đà Nẵng', account: 'phamquoccuong', password: 'qwerty123' },
+    { id: 6, name: 'Trần Thị Mai', email: 'tranthimai@example.com', status: 'inactive', address: 'Hồ Chí Minh', account: 'tranthimai', password: '123abc' },
+    { id: 7, name: 'Nguyễn Thị Lan', email: 'nguyenthi@example.com', status: 'active', address: 'Bắc Ninh', account: 'nguyenthi', password: 'lan12345' },
+    { id: 8, name: 'Vũ Minh Tú', email: 'vuminhtu@example.com', status: 'inactive', address: 'Vinh', account: 'vuminhtu', password: 'password987' },
+    { id: 9, name: 'Đặng Thiên Hương', email: 'dangthienhuong@example.com', status: 'active', address: 'Cần Thơ', account: 'dangthienhuong', password: 'hương123' },
+    { id: 10, name: 'Hoàng Văn Quang', email: 'hoangvanquang@example.com', status: 'inactive', address: 'Thanh Hóa', account: 'hoangvanquang', password: 'qwerty6789' },
+    { id: 11, name: 'Lê Ngọc Anh', email: 'lengocanh@example.com', status: 'active', address: 'Hà Nội', account: 'lengocanh', password: 'anh12345' },
+    { id: 12, name: 'Nguyễn Quang Huy', email: 'nguyenquanghuy@example.com', status: 'active', address: 'Hồ Chí Minh', account: 'nguyenquanghuy', password: 'quanghuy789' },
+    { id: 13, name: 'Trần Thị Thu Hà', email: 'tranthithuha@example.com', status: 'inactive', address: 'Huế', account: 'tranthithuha', password: 'thuha123' },
+    { id: 14, name: 'Nguyễn Thiện An', email: 'nguyenthienan@example.com', status: 'active', address: 'Long An', account: 'nguyenthienan', password: 'an12345' },
+    { id: 15, name: 'Phan Minh Hoàng', email: 'phanminhhoang@example.com', status: 'active', address: 'Bình Dương', account: 'phanminhhoang', password: 'hoang123' },
+    { id: 16, name: 'Đoàn Thanh Tâm', email: 'doanthantham@example.com', status: 'inactive', address: 'Nha Trang', account: 'doanthantham', password: 'tamtam123' },
+    { id: 17, name: 'Bùi Thị Mai', email: 'bui.thimai@example.com', status: 'active', address: 'Vũng Tàu', account: 'buithimai', password: 'maimai789' },
+    { id: 18, name: 'Nguyễn Thị Thúy', email: 'nguyen.thithuy@example.com', status: 'active', address: 'Quảng Ninh', account: 'nguyenthithuy', password: 'thuy12345' },
+    { id: 19, name: 'Trương Thiên Bình', email: 'truongthienbinh@example.com', status: 'active', address: 'Bắc Giang', account: 'truongthienbinh', password: 'binh123' },
+    { id: 20, name: 'Mai Quang Duy', email: 'maiquangduy@example.com', status: 'inactive', address: 'Bà Rịa', account: 'maiquangduy', password: 'duy12345' },
+];
+
+        let currentPage = 1;
+        let usersPerPage = 6;
+
+        function displayUsers() {
+            const table = document.getElementById('userTable');
+            table.innerHTML = '';
+            let start = (currentPage - 1) * usersPerPage;
+            let end = start + usersPerPage;
+            let pagedUsers = users.slice(start, end);
+
+            pagedUsers.forEach(user => {
+                let row = document.createElement('tr');
+                let statusClass = user.status === 'active' ? 'status-active' : 'status-inactive';
+                let statusText = user.status === 'active' ? 'Active' : 'Locked';
+                row.innerHTML = `
+                    <td class="py-3 px-6">${user.id}</td>
+                    <td class="py-3 px-6">${user.name}</td>
+                    <td class="py-3 px-6">${user.email}</td>
+                    <td class="py-3 px-6 text-left">
+                            <button onclick="toggleStatus(${user.id})" class="px-4 py-2 rounded ${statusClass}">${statusText}</button>
+                        </td>
+                    <td class="py-3 px-6">
+                        <button onclick="editUser(${user.id})" class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">Sửa</button>
+                        <button onclick="deleteUser(${user.id})" class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Xóa</button>
+                    </td>
+                `;
+                table.appendChild(row);
+            });
+
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('totalPages').textContent = Math.ceil(users.length / usersPerPage);
+        }
+
+        function saveUser() {
+    const userName = document.getElementById('userName').value;
+    const userEmail = document.getElementById('userEmail').value;
+    const userAddress = document.getElementById('userAddress').value;
+    const userAccount = document.getElementById('userAccount').value;
+    const userPassword = document.getElementById('userPassword').value;
+    
+    // Simulate save action (you can add logic to actually save data here)
+
+    // Close the modal first
+    closeModal();
+
+    // Show success notification after a brief delay
+    setTimeout(() => {
+        const notification = document.getElementById('notification');
+        notification.classList.remove('hidden');
+        notification.textContent = `Người dùng ${userName} đã được cập nhật`;
+
+        // Hide notification after 2 seconds
+        setTimeout(() => {
+            notification.classList.add('hidden');
+        }, 2000);
+    }, 200); // Delay before showing the notification to ensure modal is closed first
+}
+
+
+        function editUser(id) {
+            const user = users.find(u => u.id === id);
+            document.getElementById('userId').value = user.id;
+            document.getElementById('userName').value = user.name;
+            document.getElementById('userEmail').value = user.email;
+            document.getElementById('userAddress').value = user.address;
+            document.getElementById('userAccount').value = user.account;
+            document.getElementById('userPassword').value = user.password;
+            document.getElementById('modalTitle').textContent = 'Sửa Người Dùng';
+            document.getElementById('userModal').classList.remove('hidden');
+        }
+
+        function deleteUser(id) {
+            const user = users.find(u => u.id === id);
+            const notification = document.getElementById('notification');
+            notification.classList.remove('hidden');
+            notification.textContent = `Đã xóa người dùng ${user.name}`;
+            closeModal();
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 2000);
+        }
+
+        function searchUsers() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const filteredUsers = users.filter(user => user.name.toLowerCase().includes(filter) || user.email.toLowerCase().includes(filter));
+            displayUsers(filteredUsers);
+        }
+
+        function toggleAddUser() {
+            document.getElementById('userModal').classList.toggle('hidden');
+            document.getElementById('modalTitle').textContent = 'Thêm Người Dùng';
+        }
+
+        function closeModal() {
+            document.getElementById('userModal').classList.add('hidden');
+        }
+
+        function nextPage() {
+            if (currentPage < Math.ceil(users.length / usersPerPage)) {
+                currentPage++;
+                displayUsers();
+            }
+        }
+        function toggleStatus(userId) {
+            let user = users.find(u => u.id === userId);
+            if (user) {
+                user.status = user.status === 'active' ? 'inactive' : 'active';
+                displayUsers();
+                showNotification(`${user.name} đã được ${user.status === 'active' ? 'mở khóa' : 'khóa'}.`);
+            }
+        }
+        function toggleStatus(userId) {
+            let user = users.find(u => u.id === userId);
+            user.status = user.status === 'active' ? 'inactive' : 'active';
+            displayUsers();
+        }
+
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayUsers();
+            }
+        }
+
+        // Initial display of users
+        displayUsers();
+    </script>
+</body>
+</html>

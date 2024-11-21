@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hóa Đơn Chi Tiết - Cà Phê Đen</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        body {
+            background-image: url('https://www.transparenttextures.com/patterns/gray-flowers.png'); /* Mẫu nền nhẹ */
+            background-color: #f7fafc;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+        }
+        .content-box {
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .bg-gradient {
+            background: linear-gradient(90deg, #2c3e50, #34495e);
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center">
+    <!-- Header -->
+    <header class="w-full bg-gradient text-white py-4 px-6 flex items-center justify-between">
+        <div class="flex items-center">
+            <img src="Images/LOGO.jpg" alt="Logo" class="logo mr-4 rounded-full">
+            <div>
+                <h1 class="text-2xl font-bold">Hóa Đơn Chi Tiết</h1>
+                <p class="text-gray-300">Sản phẩm: <span class="font-semibold">Cà Phê Đen</span></p>
+                <p class="text-gray-300">Giá: <span class="font-semibold">30,000 VNĐ</span></p>
+            </div>
+        </div>
+        <a href="statistics.html" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">Quay lại trang thống kê</a>
+    </header>
+
+    <!-- Content -->
+    <div class="w-full max-w-4xl mt-8 p-6 content-box">
+        <h2 class="text-xl font-bold mb-4 text-center">Danh Sách Mua Hàng</h2>
+        
+        <!-- Data for September -->
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold mb-2">Tháng 9</h3>
+            <table class="min-w-full bg-white rounded-lg shadow-lg mb-6">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="py-3 px-6 text-left">STT</th>
+                        <th class="py-3 px-6 text-left">Tên Người Mua</th>
+                        <th class="py-3 px-6 text-left">Số Lượng</th>
+                        <th class="py-3 px-6 text-left">Ngày Mua</th>
+                        <th class="py-3 px-6 text-left">Thành Tiền (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <script>
+                        const dataSeptember = [
+                            { name: 'Nguyễn Văn Bình', quantity: 3, date: '2024-09-05' },
+                            { name: 'Trần Thị Thảo', quantity: 6, date: '2024-09-10' },
+                            { name: 'Phạm Văn Khánh', quantity: 4, date: '2024-09-15' },
+                            { name: 'Lê Thị Hương', quantity: 2, date: '2024-09-20' }
+                        ];
+                        dataSeptember.forEach((buyer, index) => {
+                            document.write(`
+                                <tr>
+                                    <td class="py-4 px-6">${index + 1}</td>
+                                    <td class="py-4 px-6">${buyer.name}</td>
+                                    <td class="py-4 px-6">${buyer.quantity}</td>
+                                    <td class="py-4 px-6">${buyer.date}</td>
+                                    <td class="py-4 px-6">${(buyer.quantity * 30000).toLocaleString()} VNĐ</td>
+                                </tr>
+                            `);
+                        });
+                    </script>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Data for October -->
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold mb-2">Tháng 10</h3>
+            <table class="min-w-full bg-white rounded-lg shadow-lg mb-6">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="py-3 px-6 text-left">STT</th>
+                        <th class="py-3 px-6 text-left">Tên Người Mua</th>
+                        <th class="py-3 px-6 text-left">Số Lượng</th>
+                        <th class="py-3 px-6 text-left">Ngày Mua</th>
+                        <th class="py-3 px-6 text-left">Thành Tiền (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <script>
+                        const dataOctober = [
+                            { name: 'Hoàng Văn Tú', quantity: 5, date: '2024-10-03' },
+                            { name: 'Đặng Thị Hoa', quantity: 7, date: '2024-10-08' },
+                            { name: 'Lý Văn Khôi', quantity: 3, date: '2024-10-12' },
+                            { name: 'Nguyễn Thị Mai', quantity: 6, date: '2024-10-25' }
+                        ];
+                        dataOctober.forEach((buyer, index) => {
+                            document.write(`
+                                <tr>
+                                    <td class="py-4 px-6">${index + 1}</td>
+                                    <td class="py-4 px-6">${buyer.name}</td>
+                                    <td class="py-4 px-6">${buyer.quantity}</td>
+                                    <td class="py-4 px-6">${buyer.date}</td>
+                                    <td class="py-4 px-6">${(buyer.quantity * 30000).toLocaleString()} VNĐ</td>
+                                </tr>
+                            `);
+                        });
+                    </script>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Data for November -->
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold mb-2">Tháng 11</h3>
+            <table class="min-w-full bg-white rounded-lg shadow-lg mb-6">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="py-3 px-6 text-left">STT</th>
+                        <th class="py-3 px-6 text-left">Tên Người Mua</th>
+                        <th class="py-3 px-6 text-left">Số Lượng</th>
+                        <th class="py-3 px-6 text-left">Ngày Mua</th>
+                        <th class="py-3 px-6 text-left">Thành Tiền (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <script>
+                        const dataNovember = [
+                            { name: 'Trần Văn Phúc', quantity: 8, date: '2024-11-05' },
+                            { name: 'Lê Thị Thanh', quantity: 2, date: '2024-11-10' },
+                            { name: 'Nguyễn Thị An', quantity: 10, date: '2024-11-15' },
+                            { name: 'Vũ Văn Hưng', quantity: 5, date: '2024-11-20' }
+                        ];
+                        dataNovember.forEach((buyer, index) => {
+                            document.write(`
+                                <tr>
+                                    <td class="py-4 px-6">${index + 1}</td>
+                                    <td class="py-4 px-6">${buyer.name}</td>
+                                    <td class="py-4 px-6">${buyer.quantity}</td>
+                                    <td class="py-4 px-6">${buyer.date}</td>
+                                    <td class="py-4 px-6">${(buyer.quantity * 30000).toLocaleString()} VNĐ</td>
+                                </tr>
+                            `);
+                        });
+                    </script>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Data for December -->
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold mb-2">Tháng 12</h3>
+            <table class="min-w-full bg-white rounded-lg shadow-lg">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="py-3 px-6 text-left">STT</th>
+                        <th class="py-3 px-6 text-left">Tên Người Mua</th>
+                        <th class="py-3 px-6 text-left">Số Lượng</th>
+                        <th class="py-3 px-6 text-left">Ngày Mua</th>
+                        <th class="py-3 px-6 text-left">Thành Tiền (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <script>
+                        const dataDecember = [
+                            { name: 'Bùi Văn Tân', quantity: 4, date: '2024-12-01' },
+                            { name: 'Phạm Thị Vân', quantity: 7, date: '2024-12-05' },
+                            { name: 'Hoàng Thị Lan', quantity: 3, date: '2024-12-10' },
+                            { name: 'Nguyễn Văn Sơn', quantity: 9, date: '2024-12-15' }
+                        ];
+                        dataDecember.forEach((buyer, index) => {
+                            document.write(`
+                                <tr>
+                                    <td class="py-4 px-6">${index + 1}</td>
+                                    <td class="py-4 px-6">${buyer.name}</td>
+                                    <td class="py-4 px-6">${buyer.quantity}</td>
+                                    <td class="py-4 px-6">${buyer.date}</td>
+                                    <td class="py-4 px-6">${(buyer.quantity * 30000).toLocaleString()} VNĐ</td>
+                                </tr>
+                            `);
+                        });
+                    </script>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full bg-gray-800 text-white text-center py-4 mt-8">
+        <p class="text-sm">© 2024 Quản Lý Vị Cafe. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
