@@ -64,6 +64,12 @@
                 }
             };
 
+            // Tìm kiếm sản phẩm
+            function search() {
+                const query = document.querySelector('.search-bar input[name="query"]').value; 
+                window.location.href = 'find.html?query=' + encodeURIComponent(query);
+            }
+
             // Gọi hàm cập nhật trạng thái đăng nhập khi tải trang
             window.onload = function() {
                 updateLoginStatus();

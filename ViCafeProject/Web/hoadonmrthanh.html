@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hóa Đơn Tất Cả Sản Phẩm - Mr. Thanh</title>
+    <title>Hóa Đơn - Quản Lý Vị Cafe</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <style>
         body {
-            background-color: #f7fafc;
+            background-color: #e0f7fa;
             font-family: Arial, sans-serif;
         }
         .logo {
@@ -15,203 +15,136 @@
             height: 80px;
         }
         .content-box {
-            border: 2px solid #e2e8f0;
-            background: white;
+            background: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 15px rgb(30, 64, 175);
         }
-        .bg-gradient {
-            background: linear-gradient(90deg, #2c3e50, #34495e);
+        .bg-header {
+            background-color: #1E40AF;
         }
-        .bold-text {
-            font-weight: bold;
+        .btn-back {
+            background-color: #1D4ED8;
+            color: white;
+            transition: background-color 0.3s;
         }
-        .page-nav {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+        .btn-back:hover {
+            background-color: #1E3A8A;
         }
-        .product-table th, .product-table td {
-            padding: 10px;
+        .text-gray-custom {
+            color: #546e7a;
         }
     </style>
 </head>
-<body class="flex flex-col items-center">
+<body class="flex flex-col items-center min-h-screen">
     <!-- Header -->
-    <header class="w-full bg-gradient text-white py-4 px-6 flex items-center justify-between">
+    <header class="w-full bg-header text-white py-6 px-8 flex items-center justify-between">
         <div class="flex items-center">
-            <img src="Images/LOGO.jpg" alt="Logo" class="logo mr-4 rounded-full">
+            <img src="Images/LOGO.jpg" alt="Logo" class="logo rounded-full mr-4">
             <div>
-                <h1 class="text-2xl font-bold">Hóa Đơn Tất Cả Sản Phẩm - Mr. Thanh</h1>
-                <p class="text-gray-300">Thời gian: <span class="font-semibold bold-text">2024-09-01</span> đến <span class="font-semibold bold-text">2024-12-30</span></p>
+                <h1 class="text-2xl font-bold">Hóa Đơn Sản Phẩm</h1>
+                <p class="text-gray-300">Khách hàng: <span class="font-semibold">Mr. Thanh</span></p>
+                <p class="text-gray-300">Ngày xuất hóa đơn: <span class="font-semibold">2024-11-29</span></p>
             </div>
         </div>
-        <a href="statistics.html" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">Quay lại trang thống kê</a>
+        <a href="statistics.html" class="btn-back px-6 py-2 rounded">Quay lại thống kê</a>
     </header>
 
-    <!-- Content -->
-    <div class="w-full max-w-4xl mt-8 p-6 content-box">
-        <h2 class="text-xl font-bold mb-4 text-center">Tất Cả Sản Phẩm Đã Mua</h2>
-
-        <!-- Khung giờ 08:00 - 09:00 AM -->
-        <h3 class="text-lg font-semibold">Khung Giờ: 08:00 AM - 09:00 AM</h3>
-        <table class="min-w-full bg-white rounded-lg shadow-lg mt-4 mb-8 product-table">
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class="text-left">Sản Phẩm</th>
-                    <th class="text-left">Số Lượng</th>
-                    <th class="text-left">Đơn Giá (VNĐ)</th>
-                    <th class="text-left">Thành Tiền (VNĐ)</th>
-                    <th class="text-left">Ngày Mua</th>
-                    <th class="text-left">Giờ Mua</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-                <tr>
-                    <td class="bold-text">Cà Phê Đen</td>
-                    <td>3</td>
-                    <td>30,000</td>
-                    <td>90,000</td>
-                    <td>2024-09-01</td>
-                    <td>08:30 AM</td>
-                </tr>
-                <tr>
-                    <td class="bold-text">Mochi Phúc Bồn Tử</td>
-                    <td>2</td>
-                    <td>19,000</td>
-                    <td>38,000</td>
-                    <td>2024-09-01</td>
-                    <td>08:45 AM</td>
-                </tr>
-                <tr>
-                    <td class="bold-text">Tổng Cộng</td>
-                    <td colspan="3"></td>
-                    <td class="font-semibold bold-text">128,000 VNĐ</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- Khung giờ 09:00 - 10:00 AM -->
-        <h3 class="text-lg font-semibold">Khung Giờ: 09:00 AM - 10:00 AM</h3>
-        <table class="min-w-full bg-white rounded-lg shadow-lg mt-4 mb-8 product-table">
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class="text-left">Sản Phẩm</th>
-                    <th class="text-left">Số Lượng</th>
-                    <th class="text-left">Đơn Giá (VNĐ)</th>
-                    <th class="text-left">Thành Tiền (VNĐ)</th>
-                    <th class="text-left">Ngày Mua</th>
-                    <th class="text-left">Giờ Mua</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-                <tr>
-                    <td class="bold-text">Cà Phê Sữa</td>
-                    <td>4</td>
-                    <td>35,000</td>
-                    <td>140,000</td>
-                    <td>2024-10-05</td>
-                    <td>09:15 AM</td>
-                </tr>
-                <tr>
-                    <td class="bold-text">Bánh Mì Que Pate</td>
-                    <td>1</td>
-                    <td>15,000</td>
-                    <td>15,000</td>
-                    <td>2024-10-05</td>
-                    <td>09:20 AM</td>
-                </tr>
-                <tr>
-                    <td class="bold-text">Tổng Cộng</td>
-                    <td colspan="3"></td>
-                    <td class="font-semibold bold-text">155,000 VNĐ</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- Khung giờ 10:00 - 11:00 AM -->
-        <h3 class="text-lg font-semibold">Khung Giờ: 10:00 AM - 11:00 AM</h3>
-        <table class="min-w-full bg-white rounded-lg shadow-lg mt-4 mb-8 product-table">
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class="text-left">Sản Phẩm</th>
-                    <th class="text-left">Số Lượng</th>
-                    <th class="text-left">Đơn Giá (VNĐ)</th>
-                    <th class="text-left">Thành Tiền (VNĐ)</th>
-                    <th class="text-left">Ngày Mua</th>
-                    <th class="text-left">Giờ Mua</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-                <tr>
-                    <td class="bold-text">Cà Phê Đen</td>
-                    <td>5</td>
-                    <td>30,000</td>
-                    <td>150,000</td>
-                    <td>2024-11-12</td>
-                    <td>10:30 AM</td>
-                </tr>
-                <tr>
-                    <td class="bold-text">Chà Bông Phô Mai</td>
-                    <td>3</td>
-                    <td>19,000</td>
-                    <td>57,000</td>
-                    <td>2024-11-12</td>
-                    <td>10:45 AM</td>
-                </tr>
-                <tr>
-                    <td class="bold-text">Tổng Cộng</td>
-                    <td colspan="3"></td>
-                    <td class="font-semibold bold-text">207,000 VNĐ</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- Khung giờ 11:00 - 12:00 PM -->
-        <h3 class="text-lg font-semibold">Khung Giờ: 11:00 AM - 12:00 PM</h3>
-        <table class="min-w-full bg-white rounded-lg shadow-lg mt-4 mb-8 product-table">
-            <thead class="bg-gray-200">
-                <tr>
-                    <th class="text-left">Sản Phẩm</th>
-                    <th class="text-left">Số Lượng</th>
-                    <th class="text-left">Đơn Giá (VNĐ)</th>
-                    <th class="text-left">Thành Tiền (VNĐ)</th>
-                    <th class="text-left">Ngày Mua</th>
-                    <th class="text-left">Giờ Mua</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-                <tr>
-                    <td class="bold-text">Cà Phê Sữa</td>
-                    <td>6</td>
-                    <td>35,000</td>
-                    <td>210,000</td>
-                    <td>2024-12-20</td>
-                    <td>11:00 AM</td>
-                </tr>
-                <tr>
-                    <td class="bold-text">Bánh Mì Que Pate</td>
-                    <td>2</td>
-                    <td>15,000</td>
-                    <td>30,000</td>
-                    <td>2024-12-20</td>
-                    <td>11:30 AM</td>
-                </tr>
-                <tr>
-                    <td class="bold-text">Tổng Cộng</td>
-                    <td colspan="3"></td>
-                    <td class="font-semibold bold-text">240,000 VNĐ</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <!-- Main Content -->
+    <main class="w-full max-w-4xl mt-10 px-6">
+        <div class="content-box p-6">
+            <h2 class="text-xl font-bold text-center text-gray-custom mb-6">Chi Tiết Hóa Đơn</h2>
+            <table class="w-full bg-white rounded-lg shadow-sm">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="text-left px-4 py-3">#</th>
+                        <th class="text-left px-4 py-3">Tên Sản Phẩm</th>
+                        <th class="text-left px-4 py-3">Số Lượng</th>
+                        <th class="text-left px-4 py-3">Đơn Giá (VNĐ)</th>
+                        <th class="text-left px-4 py-3">Thành Tiền (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-4 py-2">1</td>
+                        <td class="px-4 py-2">Cà Phê Đen</td>
+                        <td class="px-4 py-2">2</td>
+                        <td class="px-4 py-2">30,000</td>
+                        <td class="px-4 py-2">60,000</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-4 py-2">2</td>
+                        <td class="px-4 py-2">Cà Phê Sữa</td>
+                        <td class="px-4 py-2">1</td>
+                        <td class="px-4 py-2">35,000</td>
+                        <td class="px-4 py-2">35,000</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">3</td>
+                        <td class="px-4 py-2">Trà Sữa Thái</td>
+                        <td class="px-4 py-2">2</td>
+                        <td class="px-4 py-2">25,000</td>
+                        <td class="px-4 py-2">50,000</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-4 py-2">4</td>
+                        <td class="px-4 py-2">Nước Ép Cam</td>
+                        <td class="px-4 py-2">1</td>
+                        <td class="px-4 py-2">40,000</td>
+                        <td class="px-4 py-2">40,000</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">5</td>
+                        <td class="px-4 py-2">Bánh Mì Que Pate</td>
+                        <td class="px-4 py-2">3</td>
+                        <td class="px-4 py-2">15,000</td>
+                        <td class="px-4 py-2">45,000</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-4 py-2">6</td>
+                        <td class="px-4 py-2">Bánh Su Kem</td>
+                        <td class="px-4 py-2">2</td>
+                        <td class="px-4 py-2">12,000</td>
+                        <td class="px-4 py-2">24,000</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">7</td>
+                        <td class="px-4 py-2">Sinh Tố Dâu</td>
+                        <td class="px-4 py-2">1</td>
+                        <td class="px-4 py-2">45,000</td>
+                        <td class="px-4 py-2">45,000</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-4 py-2">8</td>
+                        <td class="px-4 py-2">Trà Đào</td>
+                        <td class="px-4 py-2">2</td>
+                        <td class="px-4 py-2">30,000</td>
+                        <td class="px-4 py-2">60,000</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-2">9</td>
+                        <td class="px-4 py-2">Bánh Croissant</td>
+                        <td class="px-4 py-2">1</td>
+                        <td class="px-4 py-2">25,000</td>
+                        <td class="px-4 py-2">25,000</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-4 py-2">10</td>
+                        <td class="px-4 py-2">Cà Phê Đặc Biệt</td>
+                        <td class="px-4 py-2">1</td>
+                        <td class="px-4 py-2">50,000</td>
+                        <td class="px-4 py-2">50,000</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="px-4 py-3 font-semibold text-right">Tổng Cộng</td>
+                        <td class="px-4 py-3 font-semibold">255,000 VNĐ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 
     <!-- Footer -->
-    <footer class="w-full bg-gray-800 text-white text-center py-4 mt-8">
+    <footer class="w-full mt-8 bg-gray-800 text-white py-4 text-center">
         <p class="text-sm">© 2024 Quản Lý Vị Cafe. All Rights Reserved.</p>
     </footer>
 </body>

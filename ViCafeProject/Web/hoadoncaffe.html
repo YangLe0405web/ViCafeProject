@@ -3,198 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hóa Đơn Chi Tiết - Cà Phê Đen</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Hóa Đơn Cà Phê</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
-            background-image: url('https://www.transparenttextures.com/patterns/gray-flowers.png'); /* Mẫu nền nhẹ */
-            background-color: #f7fafc;
+            background-color: #edf2f7;
         }
-        .logo {
-            width: 80px;
-            height: 80px;
+        .header-logo {
+            width: 60px;
+            height: 60px;
         }
         .content-box {
-            border: 2px solid #e2e8f0;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        .bg-gradient {
-            background: linear-gradient(90deg, #2c3e50, #34495e);
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
     </style>
 </head>
-<body class="flex flex-col items-center">
+<body class="font-sans antialiased text-gray-800">
     <!-- Header -->
-    <header class="w-full bg-gradient text-white py-4 px-6 flex items-center justify-between">
-        <div class="flex items-center">
-            <img src="Images/LOGO.jpg" alt="Logo" class="logo mr-4 rounded-full">
-            <div>
-                <h1 class="text-2xl font-bold">Hóa Đơn Chi Tiết</h1>
-                <p class="text-gray-300">Sản phẩm: <span class="font-semibold">Cà Phê Đen</span></p>
-                <p class="text-gray-300">Giá: <span class="font-semibold">30,000 VNĐ</span></p>
+    <header class="w-full bg-blue-800 text-white py-4">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <div class="flex items-center">
+                <img src="Images/LOGO.jpg" alt="Logo" class="header-logo rounded-full mr-4">
+                <h1 class="text-xl font-bold">Hóa Đơn - Vị Cafe</h1>
             </div>
+            <a href="statistics.html" class="bg-blue-700 hover:bg-blue-900 text-white py-2 px-4 rounded">
+                Quay lại thống kê
+            </a>
         </div>
-        <a href="statistics.html" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">Quay lại trang thống kê</a>
     </header>
 
-    <!-- Content -->
-    <div class="w-full max-w-4xl mt-8 p-6 content-box">
-        <h2 class="text-xl font-bold mb-4 text-center">Danh Sách Mua Hàng</h2>
-        
-        <!-- Data for September -->
-        <div class="mb-8">
-            <h3 class="text-lg font-semibold mb-2">Tháng 9</h3>
-            <table class="min-w-full bg-white rounded-lg shadow-lg mb-6">
-                <thead class="bg-gray-200">
-                    <tr>
-                        <th class="py-3 px-6 text-left">STT</th>
-                        <th class="py-3 px-6 text-left">Tên Người Mua</th>
-                        <th class="py-3 px-6 text-left">Số Lượng</th>
-                        <th class="py-3 px-6 text-left">Ngày Mua</th>
-                        <th class="py-3 px-6 text-left">Thành Tiền (VNĐ)</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                    <script>
-                        const dataSeptember = [
-                            { name: 'Nguyễn Văn Bình', quantity: 3, date: '2024-09-05' },
-                            { name: 'Trần Thị Thảo', quantity: 6, date: '2024-09-10' },
-                            { name: 'Phạm Văn Khánh', quantity: 4, date: '2024-09-15' },
-                            { name: 'Lê Thị Hương', quantity: 2, date: '2024-09-20' }
-                        ];
-                        dataSeptember.forEach((buyer, index) => {
-                            document.write(`
-                                <tr>
-                                    <td class="py-4 px-6">${index + 1}</td>
-                                    <td class="py-4 px-6">${buyer.name}</td>
-                                    <td class="py-4 px-6">${buyer.quantity}</td>
-                                    <td class="py-4 px-6">${buyer.date}</td>
-                                    <td class="py-4 px-6">${(buyer.quantity * 30000).toLocaleString()} VNĐ</td>
-                                </tr>
-                            `);
-                        });
-                    </script>
-                </tbody>
-            </table>
-        </div>
+    <!-- Main Content -->
+    <main class="container mx-auto mt-8">
+        <div class="content-box p-6">
+            <h2 class="text-2xl font-bold mb-4 text-center">Chi Tiết Hóa Đơn</h2>
+            <p class="text-lg text-center mb-6">Sản phẩm: <strong>Cà Phê Đen</strong> | Giá: <strong>30,000 VNĐ</strong></p>
 
-        <!-- Data for October -->
-        <div class="mb-8">
-            <h3 class="text-lg font-semibold mb-2">Tháng 10</h3>
-            <table class="min-w-full bg-white rounded-lg shadow-lg mb-6">
-                <thead class="bg-gray-200">
-                    <tr>
-                        <th class="py-3 px-6 text-left">STT</th>
-                        <th class="py-3 px-6 text-left">Tên Người Mua</th>
-                        <th class="py-3 px-6 text-left">Số Lượng</th>
-                        <th class="py-3 px-6 text-left">Ngày Mua</th>
-                        <th class="py-3 px-6 text-left">Thành Tiền (VNĐ)</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                    <script>
-                        const dataOctober = [
-                            { name: 'Hoàng Văn Tú', quantity: 5, date: '2024-10-03' },
-                            { name: 'Đặng Thị Hoa', quantity: 7, date: '2024-10-08' },
-                            { name: 'Lý Văn Khôi', quantity: 3, date: '2024-10-12' },
-                            { name: 'Nguyễn Thị Mai', quantity: 6, date: '2024-10-25' }
-                        ];
-                        dataOctober.forEach((buyer, index) => {
-                            document.write(`
-                                <tr>
-                                    <td class="py-4 px-6">${index + 1}</td>
-                                    <td class="py-4 px-6">${buyer.name}</td>
-                                    <td class="py-4 px-6">${buyer.quantity}</td>
-                                    <td class="py-4 px-6">${buyer.date}</td>
-                                    <td class="py-4 px-6">${(buyer.quantity * 30000).toLocaleString()} VNĐ</td>
-                                </tr>
-                            `);
-                        });
-                    </script>
-                </tbody>
-            </table>
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full table-auto border-collapse border border-gray-200">
+                    <thead class="bg-gray-300">
+                        <tr>
+                            <th class="border px-4 py-2 text-left">STT</th>
+                            <th class="border px-4 py-2 text-left">Tên Người Mua</th>
+                            <th class="border px-4 py-2 text-left">Số Lượng</th>
+                            <th class="border px-4 py-2 text-left">Ngày Mua</th>
+                            <th class="border px-4 py-2 text-left">Thành Tiền (VNĐ)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="border px-4 py-2">1</td>
+                            <td class="border px-4 py-2">Mr.Thanh</td>
+                            <td class="border px-4 py-2">3</td>
+                            <td class="border px-4 py-2">2024-09-01</td>
+                            <td class="border px-4 py-2">90,000</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border px-4 py-2">2</td>
+                            <td class="border px-4 py-2">Trần Thị Thảo</td>
+                            <td class="border px-4 py-2">6</td>
+                            <td class="border px-4 py-2">2024-09-10</td>
+                            <td class="border px-4 py-2">180,000</td>
+                        </tr>
+                        <tr>
+                            <td class="border px-4 py-2">3</td>
+                            <td class="border px-4 py-2">Phạm Văn Khánh</td>
+                            <td class="border px-4 py-2">4</td>
+                            <td class="border px-4 py-2">2024-09-15</td>
+                            <td class="border px-4 py-2">120,000</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border px-4 py-2">4</td>
+                            <td class="border px-4 py-2">Lê Thị Hương</td>
+                            <td class="border px-4 py-2">2</td>
+                            <td class="border px-4 py-2">2024-09-20</td>
+                            <td class="border px-4 py-2">60,000</td>
+                        </tr>
+                        <tr>
+                            <td class="border px-4 py-2">5</td>
+                            <td class="border px-4 py-2">Hoàng Văn Tú</td>
+                            <td class="border px-4 py-2">5</td>
+                            <td class="border px-4 py-2">2024-10-03</td>
+                            <td class="border px-4 py-2">150,000</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border px-4 py-2">6</td>
+                            <td class="border px-4 py-2">Đặng Thị Hoa</td>
+                            <td class="border px-4 py-2">7</td>
+                            <td class="border px-4 py-2">2024-10-08</td>
+                            <td class="border px-4 py-2">210,000</td>
+                        </tr>
+                        <tr>
+                            <td class="border px-4 py-2">7</td>
+                            <td class="border px-4 py-2">Lý Văn Khôi</td>
+                            <td class="border px-4 py-2">3</td>
+                            <td class="border px-4 py-2">2024-10-12</td>
+                            <td class="border px-4 py-2">90,000</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border px-4 py-2">8</td>
+                            <td class="border px-4 py-2">Nguyễn Thị Mai</td>
+                            <td class="border px-4 py-2">6</td>
+                            <td class="border px-4 py-2">2024-10-25</td>
+                            <td class="border px-4 py-2">180,000</td>
+                        </tr>
+                        <tr>
+                            <td class="border px-4 py-2">9</td>
+                            <td class="border px-4 py-2">Bùi Văn Tân</td>
+                            <td class="border px-4 py-2">4</td>
+                            <td class="border px-4 py-2">2024-12-01</td>
+                            <td class="border px-4 py-2">120,000</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border px-4 py-2">10</td>
+                            <td class="border px-4 py-2">Phạm Thị Vân</td>
+                            <td class="border px-4 py-2">7</td>
+                            <td class="border px-4 py-2">2024-12-05</td>
+                            <td class="border px-4 py-2">210,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-
-        <!-- Data for November -->
-        <div class="mb-8">
-            <h3 class="text-lg font-semibold mb-2">Tháng 11</h3>
-            <table class="min-w-full bg-white rounded-lg shadow-lg mb-6">
-                <thead class="bg-gray-200">
-                    <tr>
-                        <th class="py-3 px-6 text-left">STT</th>
-                        <th class="py-3 px-6 text-left">Tên Người Mua</th>
-                        <th class="py-3 px-6 text-left">Số Lượng</th>
-                        <th class="py-3 px-6 text-left">Ngày Mua</th>
-                        <th class="py-3 px-6 text-left">Thành Tiền (VNĐ)</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                    <script>
-                        const dataNovember = [
-                            { name: 'Trần Văn Phúc', quantity: 8, date: '2024-11-05' },
-                            { name: 'Lê Thị Thanh', quantity: 2, date: '2024-11-10' },
-                            { name: 'Nguyễn Thị An', quantity: 10, date: '2024-11-15' },
-                            { name: 'Vũ Văn Hưng', quantity: 5, date: '2024-11-20' }
-                        ];
-                        dataNovember.forEach((buyer, index) => {
-                            document.write(`
-                                <tr>
-                                    <td class="py-4 px-6">${index + 1}</td>
-                                    <td class="py-4 px-6">${buyer.name}</td>
-                                    <td class="py-4 px-6">${buyer.quantity}</td>
-                                    <td class="py-4 px-6">${buyer.date}</td>
-                                    <td class="py-4 px-6">${(buyer.quantity * 30000).toLocaleString()} VNĐ</td>
-                                </tr>
-                            `);
-                        });
-                    </script>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Data for December -->
-        <div class="mb-8">
-            <h3 class="text-lg font-semibold mb-2">Tháng 12</h3>
-            <table class="min-w-full bg-white rounded-lg shadow-lg">
-                <thead class="bg-gray-200">
-                    <tr>
-                        <th class="py-3 px-6 text-left">STT</th>
-                        <th class="py-3 px-6 text-left">Tên Người Mua</th>
-                        <th class="py-3 px-6 text-left">Số Lượng</th>
-                        <th class="py-3 px-6 text-left">Ngày Mua</th>
-                        <th class="py-3 px-6 text-left">Thành Tiền (VNĐ)</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                    <script>
-                        const dataDecember = [
-                            { name: 'Bùi Văn Tân', quantity: 4, date: '2024-12-01' },
-                            { name: 'Phạm Thị Vân', quantity: 7, date: '2024-12-05' },
-                            { name: 'Hoàng Thị Lan', quantity: 3, date: '2024-12-10' },
-                            { name: 'Nguyễn Văn Sơn', quantity: 9, date: '2024-12-15' }
-                        ];
-                        dataDecember.forEach((buyer, index) => {
-                            document.write(`
-                                <tr>
-                                    <td class="py-4 px-6">${index + 1}</td>
-                                    <td class="py-4 px-6">${buyer.name}</td>
-                                    <td class="py-4 px-6">${buyer.quantity}</td>
-                                    <td class="py-4 px-6">${buyer.date}</td>
-                                    <td class="py-4 px-6">${(buyer.quantity * 30000).toLocaleString()} VNĐ</td>
-                                </tr>
-                            `);
-                        });
-                    </script>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    </main>
 
     <!-- Footer -->
-    <footer class="w-full bg-gray-800 text-white text-center py-4 mt-8">
-        <p class="text-sm">© 2024 Quản Lý Vị Cafe. All Rights Reserved.</p>
+    <footer class="mt-8 bg-gray-800 text-white py-4 text-center">
+        <p class="text-sm">© 2024 Vị Cafe. All Rights Reserved.</p>
     </footer>
 </body>
 </html>

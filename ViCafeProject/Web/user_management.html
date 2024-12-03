@@ -184,8 +184,7 @@
                             <button onclick="toggleStatus(${user.id})" class="px-4 py-2 rounded ${statusClass}">${statusText}</button>
                         </td>
                     <td class="py-3 px-6">
-                        <button onclick="editUser(${user.id})" class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">Sửa</button>
-                        <button onclick="deleteUser(${user.id})" class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Xóa</button>
+                        <button onclick="editUser(${user.id})" class="bg-yellow-500 text-white py-2 px-5 text-right rounded hover:bg-yellow-600">Sửa</button>
                     </td>
                 `;
                 table.appendChild(row);
@@ -232,18 +231,6 @@
             document.getElementById('modalTitle').textContent = 'Sửa Người Dùng';
             document.getElementById('userModal').classList.remove('hidden');
         }
-
-        function deleteUser(id) {
-            const user = users.find(u => u.id === id);
-            const notification = document.getElementById('notification');
-            notification.classList.remove('hidden');
-            notification.textContent = `Đã xóa người dùng ${user.name}`;
-            closeModal();
-            setTimeout(() => {
-                notification.classList.add('hidden');
-            }, 2000);
-        }
-
         function searchUsers() {
             const input = document.getElementById('searchInput');
             const filter = input.value.toLowerCase();
